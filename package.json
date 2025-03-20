@@ -18,6 +18,12 @@
       "prettier --write"
     ]
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "lint-staged"
+    }
+  },
   "dependencies": {
     "husky": "^9.1.7",
     "next": "15.2.3",
