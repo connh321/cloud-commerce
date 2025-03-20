@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "prepare": "husky install",
+    "test": "echo 'No tests to run'"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -21,7 +23,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "echo 'Running pre-commit hook' && lint-staged",
-      "pre-push": "lint-staged"
+      "pre-push": "echo 'Running pre-commit hook' && lint-staged"
     }
   },
   "dependencies": {
@@ -39,6 +41,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.2.3",
-    "typescript": "^5"
+    "typescript": "^5",
+    "husky": "^8.0.0"
   }
 }
