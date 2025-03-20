@@ -7,16 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "lint-staged": "lint-staged"
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "prettier --write",
-      "next lint"
-    ],
-    "*.{html,css,scss}": [
-      "prettier --write"
-    ]
+    "prepare": "husky",
+    "test": "echo 'No tests to run'",
+    "prettier": "prettier --write"
   },
   "dependencies": {
     "husky": "^9.1.7",
@@ -33,6 +26,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.2.3",
-    "typescript": "^5"
+    "typescript": "^5",
+    "husky": "^8.0.0"
   }
 }
