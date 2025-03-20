@@ -7,24 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "lint-staged": "lint-staged",
-    "prepare": "husky install",
-    "test": "echo 'No tests to run'"
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "prettier --write",
-      "next lint"
-    ],
-    "*.{html,css,scss}": [
-      "prettier --write"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "echo 'Running pre-commit hook' && lint-staged",
-      "pre-push": "echo 'Running pre-commit hook' && lint-staged"
-    }
+    "prepare": "husky",
+    "test": "echo 'No tests to run'",
+    "prettier": "prettier --write"
   },
   "dependencies": {
     "husky": "^9.1.7",
