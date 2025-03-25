@@ -20,6 +20,13 @@
     ],
     "paths": {
       "@sass/*": ["./sass/*"],
+      "@images/*": ["./public/images/*"],
+      "@routes/*": ["./src/app/(routes)/*"],
+      "@components/*": ["./src/app/components/*"],
+      "@lib/*": ["./src/app/lib/*"],
+      "@types/*": ["./src/app/types/*"],
+
+
       "@/*": ["./src/*"]
     }
   },

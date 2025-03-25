@@ -1,0 +1,140 @@
+@import '@sass/_mixins.scss';
+@import '@sass/_variables.scss';
+
+
+// Reusable Mixins
+@mixin interactive-section {
+  @include flexDirection(row, center, center);
+  margin: 4px 10px;
+  border: 1px solid transparent;
+
+  &:hover {
+    background-color: transparent;
+    border: 1px solid white;
+    cursor: pointer;
+  }
+}
+
+.navigation {
+  display: inline-flex;
+  align-items: center;
+}
+
+.signIn,
+.returnsOrders {
+  @include interactive-section();
+  @include flexDirection(column, center, center);
+  font-size: 0.875rem;
+}
+
+.helloText,
+.returnsText {
+  @include ellipsis();
+  color: $amazon-light;
+}
+
+.signInText,
+.ordersText {
+  @include ellipsis();
+  font-weight: 700;
+  color: white;
+}
+
+.signInUser {
+  @include flexDirection(row, center, center);
+}
+
+.user {
+  padding: 3px 0 0 5px;
+}
+
+.cart {
+  @include interactive-section();
+  position: relative;
+  @include flexDirection(row, center, center);
+  text-align: center;
+}
+
+.cartIcon {
+  width: auto;
+  object-fit: cover;
+  height: 34px;
+}
+
+.cartCount {
+  color: $amazon-dark-yellow;
+  font-weight: 700;
+  position: absolute;
+  top: 0px;
+  text-align: center;
+  padding-left: 7px;
+  font-size: 0.8rem;
+}
+
+// Mobile Styles
+@media (min-width: 769px) {
+  .mobileHome,
+  .mobileOrders {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .navigation {
+    height: 25px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px 0;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .mobileHome,
+  .mobileOrders {
+    @include flexDirection(row, center, center);
+    width: 3rem;
+    height: 100%;
+    font-size: 1.6rem;
+    right: 0;
+    cursor: pointer;
+    color: $amazon-dark-blue;
+  }
+
+  .helloText,
+  .signInText,
+  .returnsText,
+  .ordersText {
+    display: none;
+  }
+
+  .signInUser {
+    width: 3rem;
+    height: 100%;
+    font-size: 1.6rem;
+    right: 0;
+    cursor: pointer;
+    color: black;
+  }
+
+  .signIn,
+  .cart {
+    margin: 8px 10px 4px;
+  }
+
+  .cartIcon {
+    width: auto;
+    object-fit: cover;
+    height: 28px;
+    filter: invert(100%);
+  }
+  .cartCount {
+    font-weight: 600;
+    color: $amazon-dark-blue;
+    top: -3px;
+  }
+}

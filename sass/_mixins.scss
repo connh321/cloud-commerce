@@ -1,0 +1,29 @@
+/**
+ * Sets the flex direction of an element.
+ *
+ * @param {string} $direction - The direction of the flex container (e.g. row, column, row-reverse, column-reverse)
+ * @param {string} $alignVertical - The vertical alignment of the flex items (e.g. flex-start, center, flex-end, baseline, stretch)
+ * @param {string} $justifyHorizontal - The horizontal alignment of the flex items (e.g. flex-start, center, flex-end, space-between, space-around)
+ */
+@mixin flexDirection(
+  $direction,
+  $alignVertical: null,
+  $justifyHorizontal: null
+) {
+  display: flex;
+  flex-direction: $direction;
+  @if $alignVertical != null {
+    align-items: $alignVertical;
+  }
+
+  @if $justifyHorizontal != null {
+    justify-content: $justifyHorizontal;
+  }
+}
+
+@mixin ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
