@@ -1,47 +1,36 @@
-@import '@sass/_mixins.scss';
-@import '@sass/_variables.scss';
+@use '@sass/_mixins.scss' as mixins;
+@use '@sass/_variables.scss' as vars;
 
 // Base Header Styles
 .header {
   width: 100%;
   min-width: 768px;
   height: 60px;
-  color: $amazon-light;
+  color: vars.$amazon-light;
   position: sticky;
 }
 
 .headerContainer {
-  @include flexDirection(row, center, space-between);
+  @include mixins.flexDirection(row, center, space-between);
   width: 100%;
   height: 100%;
   margin: 0;
-  padding: 0 1rem;
+  padding: 4px;
   box-sizing: border-box;
-  background-color: $amazon-dark-blue;
-}
-
-// Reusable Mixins
-@mixin interactive-section {
-  @include flexDirection(row, center, center);
-  margin: 4px 10px;
-  border: 1px solid transparent;
-
-  &:hover {
-    background-color: transparent;
-    border: 1px solid white;
-    cursor: pointer;
-  }
+  background-color: vars.$amazon-dark-blue;
+  transition: box-shadow 0.2s ease;
 }
 
 // Header Components
 .logo {
-  @include interactive-section();
+  @include mixins.flexDirection(row, center, center);
+  @include mixins.interactive-section();
   width: 115px;
-  height: 50px;
+  height: 45px;
 }
 
 .search {
-  @include flexDirection(row, center, null);
+  @include mixins.flexDirection(row, center, null);
   flex: 1;
   margin: 0 10px;
   height: 100%;
@@ -49,7 +38,7 @@
 }
 
 .inputIcon {
-  @include flexDirection(row, center, null);
+  @include mixins.flexDirection(row, center, null);
   height: 40px;
   flex: 1;
 }
@@ -69,7 +58,7 @@
   &:focus-visible {
     width: calc(100% - 40px);
     outline: none;
-    box-shadow: 0 0 0 4px $amazon-dark-yellow;
+    box-shadow: 0 0 0 4px vars.$amazon-dark-yellow;
   }
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0); // needed for mobile fix
 }
@@ -77,7 +66,7 @@
 .searchIcon {
   width: 3rem;
   height: 100%;
-  background-color: $amazon-light-yellow;
+  background-color: vars.$amazon-light-yellow;
   color: black;
   font-size: 2rem;
   display: flex;
@@ -92,11 +81,11 @@
 }
 
 .searchInput:focus + .searchIcon {
-  box-shadow: 0 0 0 4px $amazon-dark-yellow;
+  box-shadow: 0 0 0 4px vars.$amazon-dark-yellow;
 }
 
 .search .backIcon {
-  display: none;  // Hidden by default
+  display: none; // Hidden by default
 }
 
 @media (max-width: 768px) {
@@ -123,7 +112,7 @@
     width: 3rem;
     height: 100%;
     background-color: transparent;
-    color: $amazon-dark-blue;
+    color: vars.$amazon-dark-blue;
     font-size: 1.6rem;
     display: flex;
     align-items: center;
@@ -131,6 +120,12 @@
     cursor: pointer;
     position: absolute;
     left: -7px;
+  }
+
+  .search:has(.searchInput:focus) {
+    box-shadow: 0 0 8px #99c2ff; /* Light blue glow */
+    background: linear-gradient(to bottom, rgba(178, 216, 255, 0.8), #99c2ff);
+    outline: none;
   }
 
   .search {
@@ -149,7 +144,7 @@
     width: 3rem;
     height: 100%;
     background-color: transparent;
-    color: $amazon-dark-blue;
+    color: vars.$amazon-dark-blue;
     font-size: 1.6rem;
     display: flex;
     align-items: center;

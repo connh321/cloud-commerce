@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import styles from './Header.module.scss';
 import { HiOutlineSearch } from 'react-icons/hi';

@@ -1,57 +1,48 @@
-@import '@sass/_mixins.scss';
-@import '@sass/_variables.scss';
-
-
-// Reusable Mixins
-@mixin interactive-section {
-  @include flexDirection(row, center, center);
-  margin: 4px 10px;
-  border: 1px solid transparent;
-
-  &:hover {
-    background-color: transparent;
-    border: 1px solid white;
-    cursor: pointer;
-  }
-}
+@use '@sass/_mixins.scss' as mixins;
+@use '@sass/_variables.scss' as vars;
 
 .navigation {
   display: inline-flex;
   align-items: center;
 }
 
-.signIn,
-.returnsOrders {
-  @include interactive-section();
-  @include flexDirection(column, center, center);
+.orders {
+  @include mixins.interactive-section();
+  @include mixins.flexDirection(column, center, center);
   font-size: 0.875rem;
 }
 
-.helloText,
-.returnsText {
-  @include ellipsis();
-  color: $amazon-light;
+.helloText {
+  @include mixins.ellipsis();
+  color: vars.$amazon-light;
 }
 
-.signInText,
+.userText,
 .ordersText {
-  @include ellipsis();
+  @include mixins.ellipsis();
   font-weight: 700;
   color: white;
 }
 
-.signInUser {
-  @include flexDirection(row, center, center);
+.userTextIcon > svg {
+  margin-left: 3px
 }
 
-.user {
-  padding: 3px 0 0 5px;
+.userContainer {
+  @include mixins.flexDirection(column, null, null);
+  @include mixins.interactive-section();
+  transform: translatex(10px);
+  font-size: 0.875rem;
+}
+
+.userTextIcon {
+  @include mixins.flexDirection(row, center, null);
 }
 
 .cart {
-  @include interactive-section();
+  @include mixins.interactive-section();
   position: relative;
-  @include flexDirection(row, center, center);
+  @include mixins.flexDirection(row, center, center);
   text-align: center;
 }
 
@@ -62,16 +53,15 @@
 }
 
 .cartCount {
-  color: $amazon-dark-yellow;
+  color: vars.$amazon-dark-yellow;
   font-weight: 700;
   position: absolute;
-  top: 0px;
+  top: 3px;
   text-align: center;
   padding-left: 7px;
   font-size: 0.8rem;
 }
 
-// Mobile Styles
 @media (min-width: 769px) {
   .mobileHome,
   .mobileOrders {
@@ -96,32 +86,57 @@
 
   .mobileHome,
   .mobileOrders {
-    @include flexDirection(row, center, center);
+    @include mixins.flexDirection(row, center, center);
     width: 3rem;
     height: 100%;
     font-size: 1.6rem;
     right: 0;
     cursor: pointer;
-    color: $amazon-dark-blue;
+    color: vars.$amazon-dark-blue;
+    position: relative;
+    transition:
+      color 0.3s ease,
+      transform 0.3s ease;
+  }
+
+  .activeTab::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2rem;
+    height: 6px;
+    background-color: vars.$amazon-light-blue;
+    border-radius: 3px;
+    margin-bottom: 4px;
+    transition: transform 0.3s ease;
   }
 
   .helloText,
-  .signInText,
-  .returnsText,
+  .userText,
   .ordersText {
     display: none;
   }
 
-  .signInUser {
-    width: 3rem;
-    height: 100%;
+  .userContainer {
+    margin-left: 0px;
+    width: 26px;
+    height: 26px;
     font-size: 1.6rem;
     right: 0;
     cursor: pointer;
     color: black;
   }
 
-  .signIn,
+  .userContainer {
+    position: relative;
+    transition:
+      color 0.3s ease,
+      transform 0.3s ease;
+  }
+
+  .userContainer,
   .cart {
     margin: 8px 10px 4px;
   }
@@ -131,10 +146,16 @@
     object-fit: cover;
     height: 28px;
     filter: invert(100%);
+    position: relative;
   }
   .cartCount {
     font-weight: 600;
-    color: $amazon-dark-blue;
-    top: -3px;
+    color: vars.$amazon-dark-blue;
+    top: 0px;
   }
+
+  .userText {
+    display: none;
+  }
+  
 }
