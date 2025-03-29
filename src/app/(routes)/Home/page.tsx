@@ -14,7 +14,7 @@ const Home = async () => {
 
   const cards = products.map(product => (
     <Suspense key={product.id} fallback={<SkeletonCard />}>
-      <Card product={product} key={product.id} />
+      <SkeletonCard />
     </Suspense>
   ));
   

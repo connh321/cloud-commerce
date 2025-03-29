@@ -13,7 +13,9 @@
   }
 }
 .skeletonCard { 
+  @include mixins.flexDirection(column, null, space-between);
   padding: 10px;
+  height: 100%;
   box-sizing: border-box;
 }
 
