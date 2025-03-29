@@ -1,0 +1,60 @@
+@use '@sass/_mixins.scss' as mixins;
+@use '@sass/_variables.scss' as vars;
+
+@keyframes pulse {
+  0% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.4;
+  }
+}
+.skeletonCard { 
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+// Base skeleton styling
+.skeletonImage,
+.skeletonText,
+.skeletonButton {
+  background-color: vars.$amazon-light;
+  animation: pulse 1.5s infinite ease-in-out;
+  border-radius: 4px;
+}
+
+// Specific skeleton elements
+.skeletonImage {
+  width: 300px;
+  height: 300px;
+}
+
+.skeletonText {
+  &.productName {
+    height: 20px;
+    width: 80%;
+  }
+
+  &.price {
+    height: 20px;
+    width: 60px;
+  }
+}
+
+.skeletonButton {
+  width: 100px;
+  height: 30px;
+}
+
+.details {
+  padding: 10px 0px;
+  box-sizing: border-box;
+}
+
+.namePrice {
+  @include mixins.flexDirection(row, center, space-between);
+  margin-top: 10px;
+}

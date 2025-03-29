@@ -1,0 +1,58 @@
+@use '@sass/_mixins.scss' as mixins;
+@use '@sass/_variables.scss' as vars;
+
+.headerBottom {
+  @include mixins.flexDirection(row, center, null);
+  width: 100%;
+  height: 50px;
+  background-color: vars.$amazon-alt-blue;
+  color: #ffffff;
+  font-size: 1rem;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.menuItem {
+  @include mixins.flexDirection(row, center, null);
+  height: 30px;
+  padding: 0px 0.5rem 0px 0.5rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-sizing: border-box;
+}
+
+.menuItem:hover {
+  border: 1px solid #ffffff;
+}
+@media (max-width: 768px) {
+  .headerBottom {
+    min-width: unset;
+    background-color: transparent;
+    color: vars.$amazon-dark-blue;
+    @include mixins.flexDirection(row, center, flex-start);
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    padding: 10px 0; /* Add some padding for spacing */
+    box-sizing: border-box;
+  }
+
+  .headerBottom::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
+
+  .menuItem {
+    @include mixins.flexDirection(row, center, center);
+    background-color: rgba(204, 204, 204, 0.4);
+    border-radius: 20px;
+    margin: 0 4px;
+    display: inline-block;
+    line-height: 15px;
+    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+    font-size: .8rem;
+    color: vars.$amazon-dark-blue;
+  }
+}

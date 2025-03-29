@@ -1,0 +1,23 @@
+@use '@sass/_mixins.scss' as mixins;
+@use '@sass/_variables.scss' as vars;
+
+.page {
+  @include mixins.flexDirection(column, center, null);
+  background-color: transparent;
+  overflow-y: scroll;
+}
+
+@media (min-width: 769px) {
+  .nav {
+    display: none;
+  }
+  .page {
+    margin: 0px auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .page {
+    background-color: transparent;
+  }
+}
