@@ -2,23 +2,18 @@
 @use '@sass/_variables.scss' as vars;
 
 .footer {
+  @include mixins.flexDirection(row, center, center);
   width: 100%;
   height: 5rem;
   background-color: vars.$amazon-alt-blue;
   color: vars.$amazon-light;
-  @include mixins.flexDirection(row, center, center);
-  display: flex;
-  justify-content: center;
-  align-items: center;
   gap: 1rem;
   text-align: center;
 }
 
 .footer .image {
+  @include mixins.flexDirection(row, center, center);
   width: 6rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .footer .paragraph {
@@ -34,6 +29,17 @@
 
 .footer .paragraph span:hover {
   color: #ffffff;
+}
+
+.link {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.link:visited {
+  color: inherit;
+  text-decoration: inherit;
 }
 
 @media (max-width: 768px) {

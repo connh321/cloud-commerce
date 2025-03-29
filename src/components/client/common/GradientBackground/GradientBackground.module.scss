@@ -1,0 +1,12 @@
+@use '@sass/_mixins.scss' as mixins;
+@use '@sass/_variables.scss' as vars;
+
+.hidden {
+  display: none;
+}
+
+@media (min-width: 769px) {
+  .nav {
+    display: none;
+  }
+}

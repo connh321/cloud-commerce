@@ -1,7 +1,6 @@
 @use '@sass/_mixins.scss' as mixins;
 @use '@sass/_variables.scss' as vars;
 
-// Base Header Styles
 .header {
   width: 100%;
   min-width: 768px;
@@ -21,7 +20,6 @@
   transition: box-shadow 0.2s ease;
 }
 
-// Header Components
 .logo {
   @include mixins.flexDirection(row, center, center);
   @include mixins.interactive-section();
@@ -64,14 +62,12 @@
 }
 
 .searchIcon {
+  @include mixins.flexDirection(row, center, center);
   width: 3rem;
   height: 100%;
   background-color: vars.$amazon-light-yellow;
   color: black;
   font-size: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   right: 0;
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
@@ -89,6 +85,10 @@
 }
 
 @media (max-width: 768px) {
+  .nav {
+    display: none;
+  }
+
   .header {
     position: sticky;
     bottom: 0;
@@ -108,14 +108,12 @@
   }
 
   .search:has(.searchInput:focus) .backIcon {
+    @include mixins.flexDirection(row, center, center);
     width: 3rem;
     height: 100%;
     background-color: transparent;
     color: vars.$amazon-dark-blue;
     font-size: 1.6rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     cursor: pointer;
     position: absolute;
     left: -7px;
@@ -131,7 +129,7 @@
     width: 100%;
     margin: 0;
     height: 60px;
-    position: fixed;
+    position: sticky;
     top: 0;
     left: 0;
     right: 0;
@@ -140,14 +138,12 @@
   }
 
   .searchIcon {
+    @include mixins.flexDirection(row, center, center);
     width: 3rem;
     height: 100%;
     background-color: transparent;
     color: vars.$amazon-dark-blue;
     font-size: 1.6rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     cursor: default;
     position: absolute;
     left: 13px;
@@ -166,5 +162,11 @@
   .searchInput:focus + .searchIcon {
     box-shadow: unset;
     transform: translateX(20px);
+  }
+
+  @media (max-width: 768px) {
+    .headerContainer {
+      padding: unset;
+    }
   }
 }

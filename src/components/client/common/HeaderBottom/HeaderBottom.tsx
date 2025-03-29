@@ -1,8 +1,7 @@
-import { LuMenu } from "react-icons/lu";
+"use client";
 import styles from './HeaderBottom.module.scss';
 
 const menuItems = [
-  { icon: <LuMenu />, text: 'All' },
   { text: 'Big Sale' },
   { text: 'Medical Care' },
   { text: 'Best Sellers' },
@@ -18,7 +17,6 @@ const HeaderBottom = () => (
   <div className={styles.headerBottom}>
     {menuItems.map((item, index) => (
       <li key={index} className={styles.menuItem}>
-        {item.icon && item.icon}
         {item.text}
       </li>
     ))}

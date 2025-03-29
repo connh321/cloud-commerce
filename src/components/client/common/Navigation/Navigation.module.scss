@@ -4,6 +4,7 @@
 .navigation {
   display: inline-flex;
   align-items: center;
+  background-color: transparent;
 }
 
 .orders {
@@ -71,17 +72,16 @@
 
 @media (max-width: 768px) {
   .navigation {
+    @include mixins.flexDirection(row, null, space-around);
     height: 25px;
     width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
     padding: 10px 0;
-    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 -4px 8px rgb(0, 0, 0, 0.1);
+    z-index: 10;
   }
 
   .mobileHome,
@@ -158,4 +158,10 @@
     display: none;
   }
   
+}
+
+@media (max-width: 768px) {
+.navigation {
+  background-color: white;
+}
 }

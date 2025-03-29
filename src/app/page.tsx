@@ -1,19 +1,15 @@
-import Header from '@/components/common/Header/Header';
+"use server";
 import styles from './page.module.scss';
 import '@sass/globals.scss';
-
 import React from 'react';
-import HeaderBottom from '@/components/common/HeaderBottom/HeaderBottom';
-import Footer from '@/components/common/Footer/Footer';
-
+import Footer from '@/components/server/common/Footer/Footer';
+import Home from '@/app/(routes)/Home/page';
 
 const Page = () => {
   return (
     <div className={styles.page}>
-      <Header />
-      <HeaderBottom />
-      <div className={styles.pageContent}></div>
-      <Footer/>
+      <Home />
+      <Footer />
     </div>
   );
 };

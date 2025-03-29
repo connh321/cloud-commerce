@@ -1,0 +1,13 @@
+@media (min-width: 769px) {
+  .home {
+    height: auto;
+    width: 100%;
+    background-color: transparent;
+  }
+}
+@media (max-width: 768px) {
+  .home {
+    height: calc(100vh - 165px);
+    width: 100%;
+  }
+}

@@ -2,26 +2,24 @@
 @use '@sass/_variables.scss' as vars;
 
 .headerBottom {
+  @include mixins.flexDirection(row, center, null);
   width: 100%;
-  min-width: 1320px;
-  height: 40px;
+  height: 50px;
   background-color: vars.$amazon-alt-blue;
   color: #ffffff;
   font-size: 1rem;
   padding: 1rem;
-  display: flex;
-  align-items: center;
   box-sizing: border-box;
 }
 
 .menuItem {
-  display: flex;
-  align-items: center;
-  height: 30;
+  @include mixins.flexDirection(row, center, null);
+  height: 30px;
   padding: 0px 0.5rem 0px 0.5rem;
   border: 1px solid transparent;
   cursor: pointer;
   transition: all 0.3s;
+  box-sizing: border-box;
 }
 
 .menuItem:hover {
@@ -30,7 +28,6 @@
 @media (max-width: 768px) {
   .headerBottom {
     min-width: unset;
-    margin-top: 10px;
     background-color: transparent;
     color: vars.$amazon-dark-blue;
     @include mixins.flexDirection(row, center, flex-start);
@@ -39,7 +36,8 @@
     white-space: nowrap;
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE and Edge */
-    padding: 8px 0; /* Add some padding for spacing */
+    padding: 10px 0; /* Add some padding for spacing */
+    box-sizing: border-box;
   }
 
   .headerBottom::-webkit-scrollbar {
@@ -47,14 +45,14 @@
   }
 
   .menuItem {
+    @include mixins.flexDirection(row, center, center);
     background-color: rgba(204, 204, 204, 0.4);
     border-radius: 20px;
     margin: 0 4px;
     display: inline-block;
-    line-height: 40px;
-    text-align: center;
-    padding: 0 16px;
-    font-size: 14px;
+    line-height: 15px;
+    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+    font-size: .8rem;
     color: vars.$amazon-dark-blue;
   }
 }
