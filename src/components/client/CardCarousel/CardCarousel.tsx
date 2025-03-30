@@ -6,19 +6,19 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-import styles from './ProductCarousel.module.scss';
+import styles from './CardCarousel.module.scss';
 import CardWrapper from '../CardWrapper/CardWrapper';
 import { useGlobalContext } from '@/context/Global/GlobalContext';
 
 
-interface ProductCarouselProps {
+interface CardCarouselProps {
   cards: ReactNode[];
 }
 
 const colors: string[] = [
+  '#32D573', // $spring green
   '#094A7E', // $dark-blue
   '#D4B2FF', // $purple
-  '#32D573', // $green
   '#96F6FF', // $teal
   '#FF5A5F', // $coral-red
   '#0C7C3C', // $forrest-green
@@ -26,12 +26,10 @@ const colors: string[] = [
   '#29171A', // $ruby
 ];
 
-const ProductCarousel = ({cards}: ProductCarouselProps) => {
+const CardCarousel = ({cards}: CardCarouselProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const { setPrimaryColor } = useGlobalContext(); 
   useEffect(() => {
-    console.log('setting color', colors[activeIndex % colors.length]);
-
     setPrimaryColor(colors[activeIndex % colors.length]);
   }, [activeIndex, setPrimaryColor]);
 
@@ -75,4 +73,4 @@ const ProductCarousel = ({cards}: ProductCarouselProps) => {
   );
 };
 
-export default ProductCarousel;
+export default CardCarousel;

@@ -58,7 +58,7 @@
     outline: none;
     box-shadow: 0 0 0 4px vars.$amazon-dark-yellow;
   }
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); // needed for mobile fix
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 .searchIcon {
@@ -81,7 +81,7 @@
 }
 
 .search .backIcon {
-  display: none; // Hidden by default
+  display: none;
 }
 
 @media (max-width: 768px) {

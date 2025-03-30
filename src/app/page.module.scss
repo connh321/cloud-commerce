@@ -4,7 +4,6 @@
 .page {
   @include mixins.flexDirection(column, center, null);
   background-color: transparent;
-  overflow-y: scroll;
 }
 
 @media (min-width: 769px) {
@@ -12,12 +11,18 @@
     display: none;
   }
   .page {
-    margin: 0px auto;
+    margin: 10px 25px;
+    height: 100%;
   }
 }
 
 @media (max-width: 768px) {
   .page {
     background-color: transparent;
+  }
+  .page {
+    margin: 0 auto;
+    height: auto;
+    padding: 10px;
   }
 }

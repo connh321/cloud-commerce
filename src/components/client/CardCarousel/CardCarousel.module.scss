@@ -2,7 +2,6 @@
 @use '@sass/_variables.scss' as vars;
 
 .carouselContainer {
-  padding: 8px;
   width: 100%;
   height: 400px;
   box-sizing: border-box;
@@ -19,7 +18,7 @@
   :global {
     .swiper {
       width: 100%;
-      height: 100%;
+      height: auto;
       @media (max-width: 769px) {
         border-radius: 8px;
       }
@@ -29,10 +28,12 @@
       margin-left: auto;
       margin-right: auto;
     }
+    .swiper-pagination {
+      bottom: -5px;
+    }
 
     .swiper-slide {
       background-color: transparent;
-      border-radius: 8px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       transition: transform 0.2s;
       @media (min-width: 769px) {
@@ -51,11 +52,11 @@
     }
 
     .swiper-pagination-bullet {
-      background-color: vars.$amazon-light-blue;
+      background-color: vars.$amazon-dark-blue;
     }
     .swiper-button-next,
     .swiper-button-prev {
-      color: vars.$amazon-light-blue;
+      color: vars.$amazon-dark-blue;
       @media (max-width: 768px) {
         display: none !important;
       }
@@ -65,6 +66,6 @@
 
 @media (max-width: 768px) {
   .carouselContainer {
-    height: 95%;
+    height: auto;
   }
 }

@@ -14,8 +14,6 @@ const GradientBackground = ({children} : GradientBackgroundProps) => {
   const { primaryColor, isSearchActive, hidePrimaryColor} = useGlobalContext();
   const [hideColor, setHideColor] = useState(hidePrimaryColor);
   const [currentColor, setCurrentColor] = useState(primaryColor);
-  console.log(currentColor);
-
   useEffect(() => {
     setCurrentColor(primaryColor);
     setHideColor(hidePrimaryColor);
@@ -37,40 +35,28 @@ const GradientBackground = ({children} : GradientBackgroundProps) => {
 
   return (
     <div 
+    className={styles.gradientBackground}
       style={{
-        margin: 0,
-        padding: 0,
-        minHeight: '100vh',
-        zIndex: -1,
         background: hideColor || currentColor === '' ? '' : `linear-gradient(
           to bottom, 
           ${currentColor} 0%, 
-          ${currentColor} 5%, 
           rgba(${hexToRgb(currentColor)}, 0.9) 10%, 
-          rgba(${hexToRgb(currentColor)}, 0.8) 15%, 
-          rgba(${hexToRgb(currentColor)}, 0.7) 20%, 
-          rgba(${hexToRgb(currentColor)}, 0.6) 25%, 
-          rgba(${hexToRgb(currentColor)}, 0.5) 30%, 
-          rgba(${hexToRgb(currentColor)}, 0.4) 35%, 
-          rgba(${hexToRgb(currentColor)}, 0.3) 40%, 
-          rgba(${hexToRgb(currentColor)}, 0.2) 45%, 
-          rgba(${hexToRgb(currentColor)}, 0.1) 50%, 
-          rgba(${hexToRgb(currentColor)}, 0.05) 55%, 
-          rgba(${hexToRgb(currentColor)}, 0.025) 60%, 
-          rgba(${hexToRgb(currentColor)}, 0.01) 65%, 
-        rgba(255, 255, 255, 0.5) 70%, 
-        rgba(255, 255, 255, 0.7) 75%, 
-        rgba(255, 255, 255, 0.8) 80%, 
-        rgba(255, 255, 255, 0.9) 85%, 
-          white 90%, 
-          white 100%
-        )`,
+          rgba(${hexToRgb(currentColor)}, 0.8) 20%, 
+          rgba(${hexToRgb(currentColor)}, 0.7) 30%, 
+          rgba(${hexToRgb(currentColor)}, 0.6) 40%, 
+          rgba(${hexToRgb(currentColor)}, 0.5) 50%, 
+          rgba(${hexToRgb(currentColor)}, 0.4) 60%, 
+          rgba(${hexToRgb(currentColor)}, 0.3) 70%, 
+          rgba(${hexToRgb(currentColor)}, 0.2) 80%, 
+          rgba(${hexToRgb(currentColor)}, 0.1) 90%, 
+          rgba(${hexToRgb(currentColor)}, 0.05) 100%
+        )`
       }}
     >
     <>
     <Header />
     {/** Hide the page except for the search button when the search bar is active on mobile only */}
-    <div className={isSearchActive ? styles.hidden : ''}>
+    <div className={isSearchActive ? styles.hidden : styles.content}>
       <HeaderBottom />
       {children}
       <div className={styles.nav}><Navigation/></div>

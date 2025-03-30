@@ -1,21 +1,22 @@
-  import Image from 'next/image';
-  import styles from './card.module.scss';
-  import { Product } from '@/types/product';
+"use server"
+import Image from 'next/image';
+import styles from './card.module.scss';
+import { Product } from '@/types/product';
 
-  interface CardProps {
-    product: Product;
-  }
+interface CardProps {
+  product: Product;
+}
 
-  const Card = ({ product }: CardProps) => {
-    return (
+const Card = ({ product }: CardProps) => {
+  return (
       <div className={styles.card}>
         <div className={styles.imageWrapper}>
         <Image
           src={product.imageUrl}
           alt={product.name}
           className={styles.image}
-          width={320}
-          height={300}
+          objectFit="contain"
+          fill
           unoptimized
           priority
         />
@@ -28,7 +29,7 @@
         </div>
         </div>
       </div>
-    );
-  }
+  );
+}
 
-  export default Card;
+export default Card;

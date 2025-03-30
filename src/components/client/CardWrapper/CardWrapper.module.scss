@@ -1,17 +1,18 @@
 .cardWrapper {
   transition: background-color 0.3s ease;
-  height: 100%;
-  width: 320px;
+  height: 400px;
+  width: 300px;
   overflow: hidden;
+  border-radius: 8px;
 }
 
-@media ( min-width: 769px) {
+@media (min-width: 769px) {
   .cardWrapper {
     background-color: white !important;
   }
 }
 
-@media ( max-width: 768px) {
+@media (max-width: 768px) {
   .cardWrapper {
     width: 100%;
   }
