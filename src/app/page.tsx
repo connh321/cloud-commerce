@@ -1,9 +1,9 @@
-"use server";
+'use server';
 import styles from './page.module.scss';
 import '@sass/globals.scss';
 import React from 'react';
 import Footer from '@/components/server/common/Footer/Footer';
-import Home from '@/app/(routes)/Home/page';
+import Home from '@/app/home/page';
 
 const Page = () => {
   return (
