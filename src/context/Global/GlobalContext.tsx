@@ -26,7 +26,7 @@ interface GlobalProviderProps {
 }
 
 export const GlobalProvider = ({ children }: GlobalProviderProps) => {
-  const [primaryColor, setPrimaryColor] = useState<string>("#094A7E");
+  const [primaryColor, setPrimaryColor] = useState<string>("#32D573"); // spring green
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [hidePrimaryColor, setHidePrimaryColor] = useState(false);
 

@@ -7,8 +7,6 @@ import Link from 'next/link';
 const Footer = () => {
   return (
     <div className={styles.footer}>
-      {/* <Image className={styles.image} src={logo} alt="Logo" /> */}
-      <div className={styles.image}>Logo</div>
       <p className={styles.paragraph}>
         &copy; All rights reserved{' '}
         <Link href="https://github.com/connh321" className={styles.link}>

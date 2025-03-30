@@ -3,17 +3,12 @@
 
 .footer {
   @include mixins.flexDirection(row, center, center);
-  width: 100%;
+  width: calc(100% + 50px);
   height: 5rem;
   background-color: vars.$amazon-alt-blue;
   color: vars.$amazon-light;
   gap: 1rem;
   text-align: center;
-}
-
-.footer .image {
-  @include mixins.flexDirection(row, center, center);
-  width: 6rem;
 }
 
 .footer .paragraph {

@@ -1,6 +1,11 @@
 @use '@sass/_mixins.scss' as mixins;
 @use '@sass/_variables.scss' as vars;
 
+.gradientBackground {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
 .hidden {
   display: none;
 }
@@ -9,4 +14,7 @@
   .nav {
     display: none;
   }
+}
+.content {
+  height: calc(100vh - 60px);
 }
