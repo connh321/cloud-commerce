@@ -27,6 +27,17 @@
   height: 45px;
 }
 
+.link {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.link:visited {
+  color: inherit;
+  text-decoration: inherit;
+}
+
 .search {
   @include mixins.flexDirection(row, center, null);
   flex: 1;
