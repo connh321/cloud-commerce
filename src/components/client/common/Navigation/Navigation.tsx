@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from 'react';
+import React from 'react';
 import styles from './Navigation.module.scss';
 import { FaRegUser } from 'react-icons/fa';
 import cartIcon from '@images/cart.png';
@@ -9,11 +9,10 @@ import { useCartContext } from '@/context/Cart/cart';
 import LoadingComponent from '../LoadingComponent/Loading';
 import { useRouter, usePathname } from 'next/navigation';
 import { useGlobalContext } from '@/context/Global/GlobalContext';
-import Link from 'next/link';
 
 const TABS = {
   HOME: '',
-  USER: 'user',
+  USER: 'login',
   CART: 'cart',
 };
 

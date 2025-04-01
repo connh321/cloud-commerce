@@ -1,0 +1,124 @@
+@use '@sass/_mixins.scss' as mixins;
+@use '@sass/_variables.scss' as vars;
+
+.container {
+  @include mixins.flexDirection(column, null, center);
+  margin: auto;
+  width: 425px;
+  margin-top: 25px;
+  background: #fff;
+  padding-bottom: 20px;
+  border-radius: 6px;
+}
+
+.header {
+  @include mixins.flexDirection(column, center, null);
+  gap: 9px;
+  width: 100%;
+  margin-top: 30px;
+}
+
+.text {
+  color: vars.$amazon-light-yellow;
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.underline {
+  width: 61px;
+  height: 6px;
+  background: vars.$amazon-light-yellow;
+  border-radius: 9px;
+}
+
+.inputs {
+  margin-top: 45px;
+  @include mixins.flexDirection(column, center, null);
+  width: 375px;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #fff;
+  border-radius: 6px;
+  gap: 10px;
+}
+
+.icon {
+  margin: 0px 30px;
+}
+
+.input {
+  @include mixins.flexDirection(row, center, null);
+  height: 45px;
+  width: 100%;
+  background: #eaeaea;
+  outline: none;
+  color: #797979;
+  font-size: 1.0rem;
+  margin-bottom: 5px;
+  border-radius: 6px;
+}
+
+.inp {
+  flex: 1;
+  height: 90%;
+  margin-right: 60px;
+  box-sizing: border-box;
+  background: #eaeaea;
+  outline: none;
+  border: none;
+}
+
+
+.submitContainer {
+  @include mixins.flexDirection(row, null, center);
+  margin-top: 20px;
+  margin-bottom: 20px;
+  gap: 30px;
+}
+
+.submit {
+  @include mixins.flexDirection(row, center, center);
+  width: 165px;
+  height: 50px;
+  color: #fff;
+  border-radius: 50px;
+  font-size: 1.0rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  color: #797979;
+
+  background-color: #eaeaea;
+  &.active {
+    color: #fff;
+
+    background: vars.$amazon-light-yellow;
+  }
+
+  &:hover {
+    background: vars.$amazon-light-yellow;
+    &.active {
+      &:not(.disabled) {
+        background: vars.$amazon-dark-yellow;
+      }
+    }
+  }
+}
+
+.disabled {
+  cursor: not-allowed !important;
+}
+
+.err {
+  background-color: vars.$coral-red;
+    padding: 5px;
+    box-sizing: border-box;
+    width: 375px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 2px;
+}
