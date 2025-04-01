@@ -1,0 +1,24 @@
+@use '@sass/_mixins.scss' as mixins;
+@use '@sass/_variables.scss' as vars;
+
+.cart {
+  margin-left: 25px;
+  padding-bottom: 50px;
+  margin-right: 25px;
+}
+
+@media (min-width: 769px) {
+  .cart {
+    height: 100%;
+    width: auto;
+    background-color: transparent;
+  }
+}
+
+@media (max-width: 768px) {
+  .cart {
+    @include mixins.flexDirection(column, center, center);
+    height: auto;
+  }
+}
+

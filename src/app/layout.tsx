@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import GlobalProvider from "@/context/Global/GlobalContext";
 import GradientBackground from "@/components/client/common/GradientBackground/GradientBackground";
+import { CartProvider } from "@/context/Cart/cart";
 
 export const metadata: Metadata = {
   title: {
@@ -21,7 +22,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <GlobalProvider>
-        <GradientBackground> {children} </GradientBackground>
+        <CartProvider>
+          <GradientBackground> {children} </GradientBackground>
+        </CartProvider>
         </GlobalProvider>
       </body>
     </html>

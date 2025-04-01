@@ -12,6 +12,10 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   width: 300px;
   border-radius: 8px;
+  transition: all 0.3s ease;
+  &:hover {
+    transform: scale(1.02);
+  }
 
   .image {
     padding: 0px 10px;
@@ -22,6 +26,7 @@
     height: 100%;
     width: 100%;
     position: relative;
+    margin-top: 10px;
   }
 
   .productName {
@@ -37,21 +42,6 @@
     font-size: 1rem;
     font-weight: 700;
     color: #b12704;
-  }
-
-  .addToCart {
-    background-color: #ffd814;
-    border: none;
-    color: #0f1111;
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-weight: 600;
-    transition: background-color 0.2s;
-
-    &:hover {
-      background-color: #f7ca00;
-      cursor: pointer;
-    }
   }
 }
 .details {
@@ -72,7 +62,6 @@
   .card {
     width: 100%;
     background-color: transparent;
-
   }
 }
 
@@ -80,6 +69,5 @@
   .card {
     width: 100%;
     background-color: white;
-
   }
 }
