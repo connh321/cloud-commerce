@@ -29,7 +29,7 @@
       margin-right: auto;
     }
     .swiper-pagination {
-      bottom: -5px;
+      bottom: 0px;
     }
 
     .swiper-slide {
@@ -38,9 +38,6 @@
       transition: transform 0.2s;
       @media (min-width: 769px) {
           margin-right: unset !important;
-      }
-      &:hover {
-        transform: scale(1.02);
       }
     }
 

@@ -1,55 +1,66 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import styles from './Navigation.module.scss';
 import { FaRegUser } from 'react-icons/fa';
 import cartIcon from '@images/cart.png';
 import Image from 'next/image';
 import { IoHomeOutline } from 'react-icons/io5';
-import { PiPackageDuotone } from 'react-icons/pi';
+import { useCartContext } from '@/context/Cart/cart';
+import LoadingComponent from '../LoadingComponent/Loading';
+import { useRouter, usePathname } from 'next/navigation';
+import { useGlobalContext } from '@/context/Global/GlobalContext';
+import Link from 'next/link';
 
 const TABS = {
-  HOME: 'home',
+  HOME: '',
   USER: 'user',
-  ORDERS: 'orders',
   CART: 'cart',
 };
 
 const TAB_ICONS = {
   [TABS.HOME]: <IoHomeOutline />,
   [TABS.USER]: <FaRegUser />,
-  [TABS.ORDERS]: <PiPackageDuotone />,
   [TABS.CART]: <Image className={styles.cartIcon} src={cartIcon} alt="cart-icon" />,
 };
 
 const Navigation = () => {
-  const [activeTab, setActiveTab] = useState(TABS.HOME);
+  const {activeTab, setActiveTab} = useGlobalContext();
+  const {loading, getCartSize} = useCartContext();
+  const count = getCartSize();
+  const router = useRouter();
+  const pathname = usePathname();
 
-  const updateActiveTab = (tab: string) => {
-    console.log(tab);
-    setActiveTab(tab);
+const handleNavigation = (tab: string) => {
+  const currentPath = pathname === '' ? '/' : pathname.substring(1);
+  if (currentPath === tab) {
+    console.log('No navigation needed, already on tab:', tab);
+    return;
   }
+  
+  const path = tab === '' ? '/' : `/${tab}`;
+  setActiveTab(tab);
+  router.push(path);
+};
 
   return (
     <div className={styles.navigation}>
       <div
-        className={`${styles.mobileHome} ${activeTab === TABS.HOME ? styles.activeTab : ''}`} onClick={() => updateActiveTab(TABS.HOME)}>
+        className={`${styles.mobileHome} ${activeTab === TABS.HOME ? styles.activeTab : ''}`} 
+        onClick={() => handleNavigation(TABS.HOME)}>
         {TAB_ICONS[TABS.HOME]}
       </div>
       <div className={`${styles.userContainer} ${activeTab === TABS.USER ? styles.activeTab : ''}`}>
         <span className={styles.helloText}>Hello, Temp</span>
-        <div className={styles.userTextIcon} onClick={() => updateActiveTab(TABS.USER)}>
-          <span className={styles.userText} >Sign In</span>
+        <div className={styles.userTextIcon} onClick={() => handleNavigation(TABS.USER)}>
+          <span className={styles.userText}>Sign In</span>
           {TAB_ICONS[TABS.USER]}
         </div>
       </div>
-      <div className={styles.orders} onClick={() => updateActiveTab(TABS.ORDERS)}>
-        <span className={`${styles.mobileOrders} ${activeTab === TABS.ORDERS ? styles.activeTab : ''}`}>
-          {TAB_ICONS[TABS.ORDERS]}
+      <div className={`${styles.cart} ${activeTab === TABS.CART ? styles.activeTab : ''}`} 
+           onClick={() => handleNavigation(TABS.CART)}>
+        <span className={styles.cartCount}>
+          {loading ? <LoadingComponent loading={loading} style={{width: '10px', height: '10px'}} /> : count}
         </span>
-        <span className={styles.ordersText}>Orders</span>
-      </div>
-      <div className={`${styles.cart} ${activeTab === TABS.CART ? styles.activeTab : ''}`} onClick={() => updateActiveTab(TABS.CART)}>
-        <span className={styles.cartCount}>99</span>
         {TAB_ICONS[TABS.CART]}
       </div>
     </div>

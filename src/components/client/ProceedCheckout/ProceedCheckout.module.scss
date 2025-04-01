@@ -1,0 +1,65 @@
+@use '@sass/_mixins.scss' as mixins;
+@use '@sass/_variables.scss' as vars;
+
+.proceedCheckout {
+  width: 100%;
+  height: auto;
+  @include mixins.flexDirection(row, center, center);
+}
+.card {
+  margin-top: 25px;
+  @include mixins.flexDirection(column, center, center);
+  height: 150;
+  position: relative;
+  text-align: center;
+  overflow: hidden;
+  padding: 10px;
+  box-sizing: border-box;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 400px;
+  border-radius: 8px;
+  background-color: white;
+  transition: all 0.3s ease;
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+
+.price {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: black;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.proceed {
+  display: flex;
+  align-items: center;
+  height: 36px;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  max-width: fit-content;
+  background-color: #ffd814;
+  border: none;
+  color: #0f1111;
+  padding: 0 16px;
+  height: 40px;
+  font-weight: 600;
+  font-size: 14px;
+  transition: background-color 0.2s;
+  cursor: pointer;
+  white-space: nowrap;
+  margin-top: 5px;
+
+  &:hover {
+    background-color: #f7ca00;
+    cursor: pointer;
+  }
+
+  &:active {
+    background-color: #f0b800;
+  }
+}

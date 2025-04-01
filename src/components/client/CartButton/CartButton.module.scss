@@ -1,0 +1,76 @@
+@use '@sass/_mixins.scss' as mixins;
+@use '@sass/_variables.scss' as vars;
+
+.cartButton {
+  display: flex;
+  align-items: center;
+  height: 36px;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  max-width: fit-content;
+}
+
+.counterButton {
+  background-color: #f0f2f2;
+  border: none;
+  color: #0f1111;
+  font-size: 16px;
+  font-weight: 600;
+  width: 32px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #e3e6e6;
+  }
+
+  &:active {
+    background-color: #dadedf;
+  }
+}
+
+.loader {
+  @include mixins.flexDirection(row, center, center);
+  width: 115px;
+}
+
+.count {
+  background-color: #f0f2f2;
+  text-align: center;
+  font-weight: 500;
+  font-size: 14px;
+  color: #0f1111;
+  padding: 0 12px;
+  min-width: 30px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.addToCart {
+  background-color: #ffd814;
+  border: none;
+  color: #0f1111;
+  padding: 0 16px;
+  height: 40px;
+  font-weight: 600;
+  font-size: 14px;
+  transition: background-color 0.2s;
+  cursor: pointer;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: #f7ca00;
+    cursor: pointer;
+  }
+
+  &:active {
+    background-color: #f0b800;
+  }
+}

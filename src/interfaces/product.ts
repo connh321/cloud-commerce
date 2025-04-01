@@ -4,8 +4,5 @@ export interface Product {
   description: string;
   price: number;
   stockQty: number;
-  lastUpdated: string; 
-  categoryId: number;
-  discount: number;
   imageUrl: string;
 }

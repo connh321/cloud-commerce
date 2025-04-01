@@ -1,19 +1,18 @@
 .products {
   margin-left: 25px;
-  margin-bottom: 25px;
+  padding-bottom: 50px;
   margin-right: 25px;}
 
 @media (min-width: 769px) {
   .products {
     height: auto;
-    width: 100%;
+    width: auto;
     background-color: transparent;
   }
 }
 
 @media (max-width: 768px) {
   .products {
-    height: 100%;
-    width: 100%;
+    height: auto;
   }
 }

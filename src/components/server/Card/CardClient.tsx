@@ -1,7 +1,8 @@
-"use server"
+"use client"
 import Image from 'next/image';
 import styles from './card.module.scss';
-import { Product } from '@/types/product';
+import { Product } from '@/interfaces/product';
+import CartButton from '@/components/client/CartButton/CartButton';
 
 interface CardProps {
   product: Product;
@@ -25,7 +26,7 @@ const Card = ({ product }: CardProps) => {
         <span className={styles.productName}>{product.name}</span>
         <div className={styles.namePrice}>
         <span className={styles.price}>${product.price.toFixed(2)}</span>
-        <button className={styles.addToCart}>Add to Cart</button>
+        <CartButton productId={product.id}/>
         </div>
         </div>
       </div>
