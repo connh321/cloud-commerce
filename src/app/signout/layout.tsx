@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import '@sass/globals.scss';
 
 export const metadata: Metadata = {
-  title: "Login | Sign Up",
-  description: "VLogin or sign up to unlock your shopping cart and start shopping today!",
+  title: "Sign Out",
+  description: "Sign out.",
 };
 
-export default async function LoginLayout({
+export default async function SignOutLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

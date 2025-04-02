@@ -2,9 +2,9 @@ import { PulseLoader } from "react-spinners";
 
 interface LoadingProps {
   loading: boolean;
-  size?: number; // Accept style as a prop
+  size?: number;
 
-  style?: React.CSSProperties; // Accept style as a prop
+  style?: React.CSSProperties; 
 }
 const LoadingComponent = ({loading, style, size} : LoadingProps) => {
   return <PulseLoader

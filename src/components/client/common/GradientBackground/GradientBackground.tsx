@@ -11,10 +11,12 @@ interface GradientBackgroundProps {
 }
 
 const GradientBackground = ({children} : GradientBackgroundProps) => {
+  console.log('rendering gradient background');
   const { primaryColor, isSearchActive, hidePrimaryColor} = useGlobalContext();
   const [hideColor, setHideColor] = useState(hidePrimaryColor);
   const [currentColor, setCurrentColor] = useState(primaryColor);
   useEffect(() => {
+    console.log('GradientBackground state updated:', { primaryColor, hidePrimaryColor });   
     setCurrentColor(primaryColor);
     setHideColor(hidePrimaryColor);
   }, [primaryColor, hidePrimaryColor]);
