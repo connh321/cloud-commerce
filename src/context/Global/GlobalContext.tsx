@@ -32,7 +32,7 @@ export const GlobalProvider = ({ children }: GlobalProviderProps) => {
   const [primaryColor, setPrimaryColor] = useState<string>("#32D573"); // spring green
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [hidePrimaryColor, setHidePrimaryColor] = useState(false);
-  const [activeTab, setActiveTab] = useState('');
+  const [activeTab, setActiveTab] = useState('/');
 
 
   return (

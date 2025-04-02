@@ -10,7 +10,6 @@ import styles from './CardCarousel.module.scss';
 import CardWrapper from '../CardWrapper/CardWrapper';
 import { useGlobalContext } from '@/context/Global/GlobalContext';
 
-
 interface CardCarouselProps {
   cards: ReactNode[];
 }
@@ -26,9 +25,9 @@ const colors: string[] = [
   '#29171A', // $ruby
 ];
 
-const CardCarousel = ({cards}: CardCarouselProps) => {
+const CardCarousel = ({ cards }: CardCarouselProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const { setPrimaryColor } = useGlobalContext(); 
+  const { setPrimaryColor } = useGlobalContext();
   useEffect(() => {
     setPrimaryColor(colors[activeIndex % colors.length]);
   }, [activeIndex, setPrimaryColor]);
@@ -51,20 +50,16 @@ const CardCarousel = ({cards}: CardCarouselProps) => {
         slidesPerGroupAuto
         pagination={{ clickable: true }}
         breakpoints={{
-          768: { slidesPerView: 1},
-          769: { slidesPerView: 2},
-          1045: { slidesPerView: 3},
+          768: { slidesPerView: 1 },
+          769: { slidesPerView: 2 },
+          1045: { slidesPerView: 3 },
           1415: { slidesPerView: 4 },
-
-        }}
-      >
+        }}>
         {cards.map((card, index) => {
           const bgColor = colors[index % colors.length];
           return (
             <SwiperSlide key={index}>
-              <CardWrapper bgColor={bgColor}>
-                {card}
-              </CardWrapper>
+              <CardWrapper bgColor={bgColor}>{card}</CardWrapper>
             </SwiperSlide>
           );
         })}
