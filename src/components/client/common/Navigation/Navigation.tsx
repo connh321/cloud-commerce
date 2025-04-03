@@ -26,6 +26,7 @@ const TAB_ICONS = {
   ),
 };
 
+
 const Navigation = () => {
   const { activeTab, setActiveTab } = useGlobalContext();
   const { loading, getCartSize } = useCartContext();
