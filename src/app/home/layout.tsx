@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
+import type { Metadata } from 'next';
 import '@sass/globals.scss';
 
 export const metadata: Metadata = {
-  title: "Home",
-  description: "Explore our homepage featuring top picks and a variety of high-quality products. Discover your next favorite item today!",
+  title: 'Home',
+  description:
+    'Explore our homepage featuring top picks and a variety of high-quality products. Discover your next favorite item today!',
 };
 
 export default function HomeLayout({
@@ -11,7 +12,5 @@ export default function HomeLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <>{children}</>
-  );
+  return <>{children}</>;
 }

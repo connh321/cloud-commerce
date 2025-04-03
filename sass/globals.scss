@@ -7,7 +7,8 @@
 body {
   margin: 0 !important;
   padding: 0;
-  background-color: #E3E6E6;
+  background-color: #e3e6e6;
+  text-rendering: unset !important;
 }
 
 @media (max-width: 768px) {

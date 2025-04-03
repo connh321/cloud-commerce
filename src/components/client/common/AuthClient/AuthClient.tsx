@@ -1,13 +1,10 @@
-"use client";
-import React from 'react'
+'use client';
+import React from 'react';
 import { Authenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-
 const AuthClient = () => {
-  return (
-    <Authenticator/>
-  )
-}
+  return <Authenticator />;
+};
 
-export default AuthClient
+export default AuthClient;

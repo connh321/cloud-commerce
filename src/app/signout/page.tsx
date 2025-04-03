@@ -24,10 +24,14 @@ const SignOutPage = () => {
   return (
     <div className={styles.signOut}>
       <span className={styles.confirm}>Are you sure you want to sign out?</span>
-      <button className={styles.signOutButton} onClick={handleSignOut} disabled={loading}>
+      <button
+        className={styles.signOutButton}
+        onClick={handleSignOut}
+        disabled={loading}
+      >
         {loading ? 'Signing Out' : 'Sign Out'}
       </button>
-      {loading && <LoadingComponent loading={true} size={8}/>}
+      {loading && <LoadingComponent loading={true} size={8} />}
     </div>
   );
 };

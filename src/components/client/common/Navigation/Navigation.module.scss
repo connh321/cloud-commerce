@@ -26,7 +26,7 @@
 }
 
 .userTextIcon > svg {
-  margin-left: 3px
+  margin-left: 3px;
 }
 
 .userContainer {
@@ -157,11 +157,10 @@
   .userText {
     display: none;
   }
-  
 }
 
 @media (max-width: 768px) {
-.navigation {
-  background-color: white;
-}
+  .navigation {
+    background-color: white;
+  }
 }

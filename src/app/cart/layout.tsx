@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
+import type { Metadata } from 'next';
 import '@sass/globals.scss';
 
 export const metadata: Metadata = {
-  title: "Cart",
-  description: "View and manage your shopping cart. Review your items, update quantities, and checkout securely.",
+  title: 'Cart',
+  description:
+    'View and manage your shopping cart. Review your items, update quantities, and checkout securely.',
 };
 
 export default async function CartLayout({
@@ -11,7 +12,5 @@ export default async function CartLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <>{children}</>
-  );
+  return <>{children}</>;
 }

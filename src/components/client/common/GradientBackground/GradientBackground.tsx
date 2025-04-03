@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import React, { useEffect, useState } from 'react';
 import { useGlobalContext } from '../../../../context/Global/GlobalContext';
 import Header from '../Header/Header';
@@ -7,16 +7,14 @@ import Navigation from '../Navigation/Navigation';
 import styles from './GradientBackground.module.scss';
 
 interface GradientBackgroundProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
-const GradientBackground = ({children} : GradientBackgroundProps) => {
-  console.log('rendering gradient background');
-  const { primaryColor, isSearchActive, hidePrimaryColor} = useGlobalContext();
+const GradientBackground = ({ children }: GradientBackgroundProps) => {
+  const { primaryColor, isSearchActive, hidePrimaryColor } = useGlobalContext();
   const [hideColor, setHideColor] = useState(hidePrimaryColor);
   const [currentColor, setCurrentColor] = useState(primaryColor);
   useEffect(() => {
-    console.log('GradientBackground state updated:', { primaryColor, hidePrimaryColor });   
     setCurrentColor(primaryColor);
     setHideColor(hidePrimaryColor);
   }, [primaryColor, hidePrimaryColor]);
@@ -25,7 +23,7 @@ const GradientBackground = ({children} : GradientBackgroundProps) => {
   const hexToRgb = (hex: string) => {
     // Remove the hash at the beginning if it's there
     hex = hex.replace(/^#/, '');
-    
+
     // Parse the hex color
     const bigint = parseInt(hex, 16);
     const r = (bigint >> 16) & 255;
@@ -36,10 +34,13 @@ const GradientBackground = ({children} : GradientBackgroundProps) => {
   };
 
   return (
-    <div 
-    className={styles.gradientBackground}
+    <div
+      className={styles.gradientBackground}
       style={{
-        background: hideColor || currentColor === '' ? '' : `linear-gradient(
+        background:
+          hideColor || currentColor === ''
+            ? ''
+            : `linear-gradient(
           to bottom, 
           ${currentColor} 0%, 
           rgba(${hexToRgb(currentColor)}, 0.9) 10%, 
@@ -52,18 +53,20 @@ const GradientBackground = ({children} : GradientBackgroundProps) => {
           rgba(${hexToRgb(currentColor)}, 0.2) 80%, 
           rgba(${hexToRgb(currentColor)}, 0.1) 90%, 
           rgba(${hexToRgb(currentColor)}, 0.05) 100%
-        )`
+        )`,
       }}
     >
-    <>
-    <Header />
-    {/** Hide the page except for the search button when the search bar is active on mobile only */}
-    <div className={isSearchActive ? styles.hidden : styles.content}>
-      <HeaderBottom />
-      {children}
-      <div className={styles.nav}><Navigation/></div>
-    </div>
-    </>
+      <>
+        <Header />
+        {/** Hide the page except for the search button when the search bar is active on mobile only */}
+        <div className={isSearchActive ? styles.hidden : styles.content}>
+          <HeaderBottom />
+          {children}
+          <div className={styles.nav}>
+            <Navigation />
+          </div>
+        </div>
+      </>
     </div>
   );
 };

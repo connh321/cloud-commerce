@@ -1,9 +1,9 @@
-import type { Metadata } from "next";
+import type { Metadata } from 'next';
 import '@sass/globals.scss';
 
 export const metadata: Metadata = {
-  title: "Sign Out",
-  description: "Sign out.",
+  title: 'Sign Out',
+  description: 'Sign out.',
 };
 
 export default async function SignOutLayout({
@@ -11,7 +11,5 @@ export default async function SignOutLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <>{children}</>
-  );
+  return <>{children}</>;
 }

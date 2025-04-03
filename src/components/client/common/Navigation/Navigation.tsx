@@ -33,11 +33,9 @@ const Navigation = () => {
   const router = useRouter();
   const pathname = usePathname();
   const { email, signedIn } = useAuthContext();
-  console.log('Navigation component re-rendering...');
 
   const handleNavigation = (tab: string) => {
     tab = tab === '' ? TABS.HOME : tab;
-    console.log('pathname, tab', pathname, tab);
     if (pathname === tab) return;
     setActiveTab(tab);
     router.push(tab);
@@ -47,7 +45,8 @@ const Navigation = () => {
     return (
       <div
         className={`${styles.userContainer} ${activeTab === TABS.SIGN_IN ? styles.activeTab : ''}`}
-        onClick={() => handleNavigation(TABS.SIGN_IN)}>
+        onClick={() => handleNavigation(TABS.SIGN_IN)}
+      >
         <div className={styles.userTextIcon}>
           <span className={styles.userText}>Sign In</span>
           {TAB_ICONS[TABS.SIGN_IN]}
@@ -60,7 +59,8 @@ const Navigation = () => {
     return (
       <div
         className={`${styles.userContainer} ${activeTab === TABS.SIGN_OUT ? styles.activeTab : ''}`}
-        onClick={() => handleNavigation(TABS.SIGN_OUT)}>
+        onClick={() => handleNavigation(TABS.SIGN_OUT)}
+      >
         <span className={styles.helloText}>Hello, {email}</span>
         <div className={styles.userTextIcon}>
           <span className={styles.userText}>Sign Out</span>
@@ -74,7 +74,8 @@ const Navigation = () => {
     return (
       <div
         className={`${styles.cart} ${activeTab === TABS.CART ? styles.activeTab : ''}`}
-        onClick={onCartClick}>
+        onClick={onCartClick}
+      >
         <span className={styles.cartCount}>
           {loading ? (
             <LoadingComponent
@@ -102,7 +103,8 @@ const Navigation = () => {
     <div className={styles.navigation}>
       <div
         className={`${styles.mobileHome} ${activeTab === TABS.HOME ? styles.activeTab : ''}`}
-        onClick={() => handleNavigation(TABS.HOME)}>
+        onClick={() => handleNavigation(TABS.HOME)}
+      >
         {TAB_ICONS[TABS.HOME]}
       </div>
       {signedIn ? signOutButton() : signInButton()}

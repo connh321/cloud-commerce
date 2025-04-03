@@ -15,6 +15,6 @@ const SkeletonCard = () => {
       </div>
     </div>
   );
-}
+};
 
 export default SkeletonCard;

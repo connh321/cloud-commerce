@@ -3,5 +3,5 @@ export interface User {
   name: string;
   password: string;
   lastUpdated: string;
-  registrationDate: string; 
+  registrationDate: string;
 }

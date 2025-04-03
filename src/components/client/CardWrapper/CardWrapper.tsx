@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import React from 'react';
 import styles from './CardWrapper.module.scss';
 
@@ -9,10 +9,7 @@ interface CardWrapperProps {
 
 const CardWrapper = ({ bgColor, children }: CardWrapperProps) => {
   return (
-    <div
-      className={styles.cardWrapper}
-      style={{ backgroundColor: bgColor }}
-    >
+    <div className={styles.cardWrapper} style={{ backgroundColor: bgColor }}>
       {children}
     </div>
   );

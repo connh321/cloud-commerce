@@ -198,6 +198,18 @@ export const removeProductFromCart = async (
     const cartItems: CartItem[] = [
       {
         userEmail: email,
+        itemQty: 2,
+        product: {
+          id: 1,
+          name: 'Product 1',
+          description: 'This is product 1',
+          price: 19.99,
+          stockQty: 10,
+          imageUrl: 'images/test.jpeg',
+        },
+      },
+      {
+        userEmail: email,
         itemQty: 1,
         product: {
           id: 2,
@@ -257,6 +269,7 @@ export const removeProductFromCart = async (
         },
       },
     ];
+    console.log(productId);
     resolve(cartItems);
   });
 };

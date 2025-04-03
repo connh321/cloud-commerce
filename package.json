@@ -9,7 +9,7 @@
     "lint": "next lint",
     "prepare": "husky",
     "test": "echo 'No tests to run'",
-    "prettier": "prettier --write"
+    "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,html,css,scss}\""
   },
   "dependencies": {
     "@aws-amplify/adapter-nextjs": "^1.5.8",

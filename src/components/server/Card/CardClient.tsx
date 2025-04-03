@@ -1,4 +1,4 @@
-"use client"
+'use client';
 import Image from 'next/image';
 import styles from './card.module.scss';
 import { Product } from '@/interfaces/product';
@@ -10,8 +10,8 @@ interface CardProps {
 
 const Card = ({ product }: CardProps) => {
   return (
-      <div className={styles.card}>
-        <div className={styles.imageWrapper}>
+    <div className={styles.card}>
+      <div className={styles.imageWrapper}>
         <Image
           src={product.imageUrl}
           alt={product.name}
@@ -21,16 +21,16 @@ const Card = ({ product }: CardProps) => {
           unoptimized
           priority
         />
-        </div>
-        <div className={styles.details}>
+      </div>
+      <div className={styles.details}>
         <span className={styles.productName}>{product.name}</span>
         <div className={styles.namePrice}>
-        <span className={styles.price}>${product.price.toFixed(2)}</span>
-        <CartButton productId={product.id}/>
-        </div>
+          <span className={styles.price}>${product.price.toFixed(2)}</span>
+          <CartButton productId={product.id} />
         </div>
       </div>
+    </div>
   );
-}
+};
 
 export default Card;

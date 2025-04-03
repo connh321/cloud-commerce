@@ -1,6 +1,9 @@
-"use client";
+'use client';
 import React, { ReactNode } from 'react';
-import { ErrorBoundary as ReactErrorBoundary, FallbackProps } from 'react-error-boundary';
+import {
+  ErrorBoundary as ReactErrorBoundary,
+  FallbackProps,
+} from 'react-error-boundary';
 import Error from './Error'; // Default error component
 
 interface Props {
@@ -14,7 +17,10 @@ const DefaultErrorFallback: React.FC<FallbackProps> = () => {
   return <Error />;
 };
 
-const ErrorBoundary: React.FC<Props> = ({ children, FallbackComponent = DefaultErrorFallback }) => {
+const ErrorBoundary: React.FC<Props> = ({
+  children,
+  FallbackComponent = DefaultErrorFallback,
+}) => {
   return (
     <ReactErrorBoundary
       FallbackComponent={FallbackComponent}

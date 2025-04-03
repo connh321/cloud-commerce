@@ -45,6 +45,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         setSignedIn(true);
         setEmail(signInDetails.loginId);
       }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {}
   };
 

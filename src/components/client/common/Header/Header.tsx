@@ -9,7 +9,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 const Header = () => {
-  console.log('a');
   const { setIsSearchActive, setHidePrimaryColor } = useGlobalContext();
   const router = useRouter();
 

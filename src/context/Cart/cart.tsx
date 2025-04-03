@@ -66,7 +66,6 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     const hubListener = Hub.listen('auth', async (data) => {
       switch (data.payload.event) {
         case 'signedOut':
-          console.log('here')
           resetCart();
           break;
       }
@@ -132,7 +131,8 @@ export const CartProvider = ({ children }: CartProviderProps) => {
         getProductCount,
         getCartSize,
         resetCart,
-      }}>
+      }}
+    >
       {children}
     </CartContext.Provider>
   );
