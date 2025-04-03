@@ -42,14 +42,16 @@ export const getCartItems = async (email: string): Promise<CartItem[]> => {
 };
 
 export const addProductToCart = async (
+  id: string,
   email: string,
   productId: string,
   currQty: number,
 ): Promise<CartItem[]> => {
-  const { errors } = await client.models.CartItem.create({
+  const { errors } = await client.models.CartItem.update({
+    id: id,
     userEmail: email,
     itemQty: currQty + 1,
-    productId: productId.toString(),
+    productId: productId,
   });
 
   if (errors) {
@@ -71,11 +73,8 @@ export const removeProductFromCart = async (
       id: id,
       userEmail: email,
       itemQty: currQty - 1,
-      productId: productId.toString(),
-    },
-    {
-      selectionSet: ['id'],
-    },
+      productId: productId,
+    }
   );
 
   if (errors) {
