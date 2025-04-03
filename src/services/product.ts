@@ -23,7 +23,7 @@ export const getProducts = async (): Promise<Product[]> => {
   if (errors) {
     console.error('Error fetching products3:', errors);
     throw new Error('Failed to fetch products');
-  }  
+  }
   const products = items.map((item) => ({
     id: item.id || '',
     productId: item.productId || '',
@@ -35,7 +35,6 @@ export const getProducts = async (): Promise<Product[]> => {
   }));
 
   return transformProductImageUrls(products);
-
 };
 
 export const getFeaturedProducts = async (): Promise<Product[]> => {
@@ -66,18 +65,18 @@ export const getFeaturedProducts = async (): Promise<Product[]> => {
 
   // Map the featured items to return the products with the necessary details
   const products = featuredItems
-  .sort((a, b) => a.featuredId.localeCompare(b.featuredId))
-  .map((item) => ({
-    id: item.product?.id || '',
-    productId: item.productId || '',
-    name: item.product?.name || '',
-    description: item.product?.description || '',
-    price: item.product?.price || 0,
-    stockQty: item.product?.stockQty || 0,
-    imageUrl: item.product?.imageUrl || '',
-  }));
+    .sort((a, b) => (a.featuredId ?? '').localeCompare(b.featuredId ?? ''))
+    .map((item) => ({
+      id: item.product?.id || '',
+      productId: item.productId || '',
+      name: item.product?.name || '',
+      description: item.product?.description || '',
+      price: item.product?.price || 0,
+      stockQty: item.product?.stockQty || 0,
+      imageUrl: item.product?.imageUrl || '',
+    }));
 
-return transformProductImageUrls(products);
+  return transformProductImageUrls(products);
 };
 
 export const getProductsBySearch = async (
@@ -90,7 +89,7 @@ export const getProductsBySearch = async (
 
   // If 'search' is an array, we can combine the search terms
   const searchTerm = Array.isArray(search) ? search.join(' ') : search;
-  const lowerSearchTerm = searchTerm.toLowerCase()
+  const lowerSearchTerm = searchTerm.toLowerCase();
   const { data: items, errors } = await client.models.Product.list({
     filter: {
       or: [
@@ -129,7 +128,8 @@ export const getProductsBySearch = async (
   return transformProductImageUrls(products);
 };
 
-const getImageUrl = (imageKey: string) => `https://cloud-commerce-production-images.s3.us-east-2.amazonaws.com/${imageKey}`;
+const getImageUrl = (imageKey: string) =>
+  `https://cloud-commerce-production-images.s3.us-east-2.amazonaws.com/${imageKey}`;
 
 const transformProductImageUrls = (products: Product[]) => {
   return products.map((product) => ({
