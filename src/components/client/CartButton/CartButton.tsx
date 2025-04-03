@@ -6,7 +6,7 @@ import { useAuthContext } from '@/context/Auth/auth';
 import { useRouter } from 'next/navigation';
 
 interface CartButtonProps {
-  productId: number;
+  productId: string;
 }
 
 const CartButton = ({ productId }: CartButtonProps) => {
@@ -35,16 +35,14 @@ const CartButton = ({ productId }: CartButtonProps) => {
         <button
           className={styles.counterButton}
           onClick={decrement}
-          aria-label="Decrease quantity"
-        >
+          aria-label="Decrease quantity">
           -
         </button>
         <span className={styles.count}>{count}</span>
         <button
           className={styles.counterButton}
           onClick={increment}
-          aria-label="Increase quantity"
-        >
+          aria-label="Increase quantity">
           +
         </button>
       </>
@@ -59,21 +57,15 @@ const CartButton = ({ productId }: CartButtonProps) => {
     );
   };
 
-return (
-  <div className={styles.cartButton}>
-    {loading ? (
-      <LoadingComponent loading={loading} style={{ width: '115px' }} />
-    ) : (
-      <>
-        {count > 0 ? (
-          <CounterComponent />
-        ) : (
-          <AddComponent />
-        )}
-      </>
-    )}
-  </div>
-);
+  return (
+    <div className={styles.cartButton}>
+      {loading ? (
+        <LoadingComponent loading={loading} style={{ width: '115px' }} />
+      ) : (
+        <>{count > 0 ? <CounterComponent /> : <AddComponent />}</>
+      )}
+    </div>
+  );
 };
 
 export default CartButton;
