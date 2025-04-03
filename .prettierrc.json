@@ -9,7 +9,6 @@
   "jsxBracketSameLine": true,
   "arrowParens": "always",
   "proseWrap": "preserve",
-  "parser": "babel",
   "overrides": [
     {
       "files": "*.json",

@@ -1,0 +1,19 @@
+.home {
+  margin-left: 25px;
+  margin-bottom: 25px;
+  margin-right: 25px;
+}
+@media (min-width: 769px) {
+  .home {
+    height: auto;
+    width: 100%;
+    background-color: transparent;
+  }
+}
+
+@media (max-width: 768px) {
+  .home {
+    height: 100%;
+    width: 100%;
+  }
+}

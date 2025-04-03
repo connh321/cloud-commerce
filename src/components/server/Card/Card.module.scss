@@ -1,0 +1,73 @@
+@use '@sass/_mixins.scss' as mixins;
+@use '@sass/_variables.scss' as vars;
+
+.card {
+  @include mixins.flexDirection(column, null, space-between);
+  height: 400px;
+  position: relative;
+  text-align: center;
+  overflow: hidden;
+  padding: 10px;
+  box-sizing: border-box;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 300px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  &:hover {
+    transform: scale(1.02);
+  }
+
+  .image {
+    padding: 0px 10px;
+    box-sizing: border-box;
+  }
+  .imageWrapper {
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    margin-top: 10px;
+  }
+
+  .productName {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: black;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .price {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #b12704;
+  }
+}
+.details {
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.productName {
+  text-align: left;
+  display: block;
+}
+
+.namePrice {
+  @include mixins.flexDirection(row, center, space-between);
+}
+
+@media (max-width: 768px) {
+  .card {
+    width: 100%;
+    background-color: transparent;
+  }
+}
+
+@media (min-width: 769px) {
+  .card {
+    width: 100%;
+    background-color: white;
+  }
+}

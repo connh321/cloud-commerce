@@ -1,11 +1,13 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "target": "ES2017",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
+    "noImplicitAny": false,
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "bundler",
@@ -20,6 +22,11 @@
     ],
     "paths": {
       "@sass/*": ["./sass/*"],
+      "@images/*": ["./public/images/*"],
+      "@components/*": ["./src/app/components/*"],
+      "@lib/*": ["./src/app/lib/*"],
+      "@interfaces/*": ["src/interfaces/*"],
+
       "@/*": ["./src/*"]
     }
   },

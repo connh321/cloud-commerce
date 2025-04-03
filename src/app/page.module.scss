@@ -1,0 +1,28 @@
+@use '@sass/_mixins.scss' as mixins;
+@use '@sass/_variables.scss' as vars;
+
+.page {
+  @include mixins.flexDirection(column, center, null);
+  background-color: transparent;
+}
+
+@media (min-width: 769px) {
+  .nav {
+    display: none;
+  }
+  .page {
+    margin: 10px 25px;
+    height: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .page {
+    background-color: transparent;
+  }
+  .page {
+    margin: 0 auto;
+    height: auto;
+    padding: 10px;
+  }
+}

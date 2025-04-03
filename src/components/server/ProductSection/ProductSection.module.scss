@@ -1,0 +1,29 @@
+@use '@sass/_mixins.scss' as mixins;
+@use '@sass/_variables.scss' as vars;
+
+.productSection {
+  display: grid;
+  gap: 20px;
+  padding-bottom: 20px;
+  justify-content: center;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(1, 300px);
+  }
+
+  @media (min-width: 769px) and (max-width: 1045px) {
+    grid-template-columns: repeat(2, 300px);
+  }
+
+  @media (min-width: 1045px) and (max-width: 1415px) {
+    grid-template-columns: repeat(3, 300px);
+  }
+
+  @media (min-width: 1415px) {
+    grid-template-columns: repeat(4, 300px);
+  }
+
+  @media (min-width: 1715px) {
+    grid-template-columns: repeat(5, 300px);
+  }
+}
