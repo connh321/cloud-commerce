@@ -22,9 +22,8 @@ export const getProducts = async (): Promise<Product[]> => {
   if (errors) {
     console.error('Error fetching products3:', errors);
     throw new Error('Failed to fetch products');
-  }
-  console.log('items', items)
-  return items.map((item) => ({
+  }  
+  const products = items.map((item) => ({
     id: item.id || '',
     name: item.name || '',
     description: item.description || '',
@@ -32,6 +31,9 @@ export const getProducts = async (): Promise<Product[]> => {
     stockQty: item.stockQty || 0,
     imageUrl: item.imageUrl || '',
   }));
+
+  return transformProductImageUrls(products);
+
 };
 
 export const getFeaturedProducts = async (): Promise<Product[]> => {
@@ -67,8 +69,7 @@ export const getFeaturedProducts = async (): Promise<Product[]> => {
     stockQty: item.product?.stockQty || 0,
     imageUrl: item.product?.imageUrl || '',
   }));
-
-  return products;
+  return transformProductImageUrls(products);
 };
 
 export const getProductsBySearch = async (
@@ -84,7 +85,7 @@ export const getProductsBySearch = async (
   console.log('search, searchTerm', search, searchTerm);
 
   // Query the backend to fetch products that match the search term
-  const { data: products, errors } = await client.models.Product.list({
+  const { data: items, errors } = await client.models.Product.list({
     filter: {
       // Assuming we are searching for products by name or description
       or: [
@@ -109,12 +110,23 @@ export const getProductsBySearch = async (
     throw new Error('Failed to fetch products by search');
   }
 
-  return products.map((item) => ({
-    id: item?.id || '',
-    name: item?.name || '',
-    description: item?.description || '',
-    price: item?.price || 0,
-    stockQty: item?.stockQty || 0,
-    imageUrl: item?.imageUrl || '',
+  const products = items.map((item) => ({
+    id: item.id || '',
+    name: item.name || '',
+    description: item.description || '',
+    price: item.price || 0,
+    stockQty: item.stockQty || 0,
+    imageUrl: item.imageUrl || '',
+  }));
+
+  return transformProductImageUrls(products);
+};
+
+const getImageUrl = (imageKey: string) => `https://cloud-commerce-production-images.s3.us-east-2.amazonaws.com/${imageKey}`;
+
+const transformProductImageUrls = (products: Product[]) => {
+  return products.map((product) => ({
+    ...product,
+    imageUrl: getImageUrl(product.imageUrl),
   }));
 };
