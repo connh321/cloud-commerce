@@ -109,6 +109,7 @@ export const getProductsBySearch = async (
     authMode: 'apiKey',
     authToken: authToken,
   });
+  console.log(items);
 
   if (errors) {
     console.error('Error fetching products by search:', errors);

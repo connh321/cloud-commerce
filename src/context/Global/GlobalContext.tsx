@@ -1,4 +1,5 @@
 'use client';
+import { usePathname } from 'next/navigation';
 import { createContext, ReactNode, useContext, useState } from 'react';
 
 interface GlobalContextType {
@@ -32,7 +33,7 @@ export const GlobalProvider = ({ children }: GlobalProviderProps) => {
   const [primaryColor, setPrimaryColor] = useState<string>('#32D573'); // spring green
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [hidePrimaryColor, setHidePrimaryColor] = useState(false);
-  const [activeTab, setActiveTab] = useState('/');
+  const [activeTab, setActiveTab] = useState(usePathname());
 
   return (
     <GlobalContext.Provider
@@ -45,8 +46,7 @@ export const GlobalProvider = ({ children }: GlobalProviderProps) => {
         setIsSearchActive,
         activeTab,
         setActiveTab,
-      }}
-    >
+      }}>
       {children}
     </GlobalContext.Provider>
   );

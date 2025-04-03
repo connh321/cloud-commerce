@@ -7,19 +7,12 @@
   background-color: transparent;
 }
 
-.orders {
-  @include mixins.interactive-section();
-  @include mixins.flexDirection(column, center, center);
-  font-size: 0.875rem;
-}
-
 .helloText {
   @include mixins.ellipsis();
   color: vars.$amazon-light;
 }
 
-.userText,
-.ordersText {
+.userText {
   @include mixins.ellipsis();
   font-weight: 700;
   color: white;
@@ -64,8 +57,7 @@
 }
 
 @media (min-width: 769px) {
-  .mobileHome,
-  .mobileOrders {
+  .mobileHome {
     display: none;
   }
 }
@@ -73,7 +65,7 @@
 @media (max-width: 768px) {
   .navigation {
     @include mixins.flexDirection(row, null, space-around);
-    height: 25px;
+    height: 40px;
     width: 100%;
     position: fixed;
     bottom: 0;
@@ -85,9 +77,9 @@
   }
 
   .mobileHome,
-  .mobileOrders {
+  .userTextIcon {
     @include mixins.flexDirection(row, center, center);
-    width: 3rem;
+    width: fit-content;
     height: 100%;
     font-size: 1.6rem;
     right: 0;
@@ -103,8 +95,6 @@
     content: '';
     position: absolute;
     bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
     width: 2rem;
     height: 6px;
     background-color: vars.$amazon-light-blue;
@@ -114,8 +104,7 @@
   }
 
   .helloText,
-  .userText,
-  .ordersText {
+  .userText {
     display: none;
   }
 
@@ -136,7 +125,6 @@
       transform 0.3s ease;
   }
 
-  .userContainer,
   .cart {
     margin: 8px 10px 4px;
   }
