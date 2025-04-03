@@ -10,7 +10,7 @@ interface ProductSectionProps {
 
 const Cards = ({ products }: { products: Product[] }): React.ReactNode => {
   return products.map((product: Product) => (
-    <CardClient product={product} key={product.id} />
+    <CardClient product={product} key={product.productId} />
   ));
 };
 

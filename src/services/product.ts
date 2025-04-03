@@ -10,6 +10,7 @@ export const getProducts = async (): Promise<Product[]> => {
   const { data: items, errors } = await client.models.Product.list({
     selectionSet: [
       'id',
+      'productId',
       'name',
       'description',
       'price',
@@ -25,6 +26,7 @@ export const getProducts = async (): Promise<Product[]> => {
   }  
   const products = items.map((item) => ({
     id: item.id || '',
+    productId: item.productId || '',
     name: item.name || '',
     description: item.description || '',
     price: item.price || 0,
@@ -43,6 +45,7 @@ export const getFeaturedProducts = async (): Promise<Product[]> => {
   const { data: featuredItems, errors } =
     await client.models.FeaturedProduct.list({
       selectionSet: [
+        'featuredId',
         'productId',
         'product.id',
         'product.name',
@@ -50,6 +53,7 @@ export const getFeaturedProducts = async (): Promise<Product[]> => {
         'product.price',
         'product.stockQty',
         'product.imageUrl',
+        'product.productId',
       ],
       authMode: 'apiKey',
       authToken: authToken,
@@ -61,15 +65,19 @@ export const getFeaturedProducts = async (): Promise<Product[]> => {
   }
 
   // Map the featured items to return the products with the necessary details
-  const products = featuredItems.map((item) => ({
+  const products = featuredItems
+  .sort((a, b) => a.featuredId.localeCompare(b.featuredId))
+  .map((item) => ({
     id: item.product?.id || '',
+    productId: item.productId || '',
     name: item.product?.name || '',
     description: item.product?.description || '',
     price: item.product?.price || 0,
     stockQty: item.product?.stockQty || 0,
     imageUrl: item.product?.imageUrl || '',
   }));
-  return transformProductImageUrls(products);
+
+return transformProductImageUrls(products);
 };
 
 export const getProductsBySearch = async (
@@ -82,19 +90,17 @@ export const getProductsBySearch = async (
 
   // If 'search' is an array, we can combine the search terms
   const searchTerm = Array.isArray(search) ? search.join(' ') : search;
-  console.log('search, searchTerm', search, searchTerm);
-
-  // Query the backend to fetch products that match the search term
+  const lowerSearchTerm = searchTerm.toLowerCase()
   const { data: items, errors } = await client.models.Product.list({
     filter: {
-      // Assuming we are searching for products by name or description
       or: [
-        { name: { contains: searchTerm } },
-        { description: { contains: searchTerm } },
+        { name: { contains: lowerSearchTerm } },
+        { description: { contains: lowerSearchTerm } },
       ],
     },
     selectionSet: [
       'id',
+      'productId',
       'name',
       'description',
       'price',
@@ -112,6 +118,7 @@ export const getProductsBySearch = async (
 
   const products = items.map((item) => ({
     id: item.id || '',
+    productId: item.productId || '',
     name: item.name || '',
     description: item.description || '',
     price: item.price || 0,
