@@ -13,7 +13,7 @@ const schema = a.schema({
       price: a.float(),
       stockQty: a.integer(),
       imageUrl: a.string(),
-      productId: a.string(),
+      productId: a.string().required(),
       cartItems: a.hasMany('CartItem', 'productId'),
       featuredProducts: a.hasMany('FeaturedProduct', 'productId'),
     })
@@ -37,7 +37,7 @@ const schema = a.schema({
   FeaturedProduct: a
     .model({
       productId: a.string().required(),
-      featuredId: a.string(),
+      featuredId: a.string().required(),
       product: a.belongsTo('Product', 'productId'),
     })
     .authorization((allow) => [
