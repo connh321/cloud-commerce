@@ -19,7 +19,7 @@ const fetchProductsData = async () => {
 // Function to render a list of cards
 const renderCards = (products: Product[]): React.ReactNode[] => {
   return products.map((product) => (
-    <Suspense fallback={<SkeletonCard />} key={product.id}>
+    <Suspense fallback={<SkeletonCard />} key={product.productId}>
       <Card product={product} />
     </Suspense>
   ));
