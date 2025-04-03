@@ -1,6 +1,6 @@
 'use server';
 import { Suspense } from 'react';
-import styles from './productSection.module.scss';
+import styles from './ProductSection.module.scss';
 import React from 'react';
 import SkeletonCard from '../Card/SkeletonCard';
 import { Product } from '@interfaces/product';
