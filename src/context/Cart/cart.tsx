@@ -18,9 +18,9 @@ import { Hub } from 'aws-amplify/utils';
 interface CartContextType {
   cartItems: CartItem[];
   loading: boolean;
-  addToCart: (productId: number) => Promise<void>;
-  removeFromCart: (productId: number) => Promise<void>;
-  getProductCount: (productId: number) => number;
+  addToCart: (productId: string) => Promise<void>;
+  removeFromCart: (productId: string) => Promise<void>;
+  getProductCount: (productId: string) => number;
   getCartSize: () => number;
   resetCart: () => void;
 }
@@ -75,7 +75,7 @@ export const CartProvider = ({ children }: CartProviderProps) => {
   }, []);
 
   // Function to add an item to the cart
-  const addToCart = async (productId: number) => {
+  const addToCart = async (productId: string) => {
     if (!email) return; // add to cart button not shown when email is null
 
     setLoading(true);
@@ -90,7 +90,7 @@ export const CartProvider = ({ children }: CartProviderProps) => {
   };
 
   // Function to remove an item from the cart
-  const removeFromCart = async (productId: number) => {
+  const removeFromCart = async (productId: string) => {
     if (!email) return; // add to cart button not shown when email is null
 
     setLoading(true);
@@ -105,7 +105,7 @@ export const CartProvider = ({ children }: CartProviderProps) => {
   };
 
   // Function to get the quantity of a specific product in the cart
-  const getProductCount = (productId: number): number => {
+  const getProductCount = (productId: string): number => {
     const item = cartItems.find((item) => item.product.id === productId);
     return item ? item.itemQty : 0;
   };
@@ -131,8 +131,7 @@ export const CartProvider = ({ children }: CartProviderProps) => {
         getProductCount,
         getCartSize,
         resetCart,
-      }}
-    >
+      }}>
       {children}
     </CartContext.Provider>
   );
