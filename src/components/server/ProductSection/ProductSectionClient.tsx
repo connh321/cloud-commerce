@@ -1,5 +1,5 @@
 'use client';
-import styles from './productSection.module.scss';
+import styles from './ProductSection.module.scss';
 import React from 'react';
 import { Product } from '@interfaces/product';
 import CardClient from '../Card/CardClient';

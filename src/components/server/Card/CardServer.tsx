@@ -1,6 +1,6 @@
 'use server';
 import Image from 'next/image';
-import styles from './card.module.scss';
+import styles from './Card.module.scss';
 import { Product } from '@/interfaces/product';
 import CartButton from '@/components/client/CartButton/CartButton';
 
