@@ -21,7 +21,7 @@ const CartButton = ({ id, productId }: CartButtonProps) => {
   const increment = () => {
     if (loading) return;
     if (!signedIn) router.push('/signin');
-    addToCart(productId, count);
+    addToCart(id, productId, count);
   };
 
   const decrement = () => {

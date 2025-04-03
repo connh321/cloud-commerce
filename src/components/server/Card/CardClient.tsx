@@ -18,7 +18,6 @@ const Card = ({ product }: CardProps) => {
           className={styles.image}
           objectFit="contain"
           fill
-          unoptimized
           priority
         />
       </div>
