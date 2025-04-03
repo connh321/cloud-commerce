@@ -17,6 +17,7 @@ export const getCartItems = async (email: string): Promise<CartItem[]> => {
       'product.price',
       'product.stockQty',
       'product.imageUrl',
+      'product.productId',
     ],
   });
 
@@ -30,6 +31,7 @@ export const getCartItems = async (email: string): Promise<CartItem[]> => {
     itemQty: item.itemQty,
     product: {
       id: item.product?.id || '',
+      productId: item.product?.productId || '',
       name: item.product?.name || '',
       description: item.product?.description || '',
       price: item.product?.price || 0,
@@ -42,26 +44,13 @@ export const getCartItems = async (email: string): Promise<CartItem[]> => {
 export const addProductToCart = async (
   email: string,
   productId: string,
+  currQty: number,
 ): Promise<CartItem[]> => {
-  const { errors } = await client.models.CartItem.create(
-    {
-      userEmail: email,
-      itemQty: 1,
-      productId: productId.toString(),
-    },
-    {
-      selectionSet: [
-        'userEmail',
-        'itemQty',
-        'product.id',
-        'product.name',
-        'product.description',
-        'product.price',
-        'product.stockQty',
-        'product.imageUrl',
-      ],
-    },
-  );
+  const { errors } = await client.models.CartItem.create({
+    userEmail: email,
+    itemQty: currQty + 1,
+    productId: productId.toString(),
+  });
 
   if (errors) {
     console.error('Error adding product to cart:', errors);
@@ -72,13 +61,21 @@ export const addProductToCart = async (
 };
 
 export const removeProductFromCart = async (
+  id: string,
   email: string,
   productId: string,
+  currQty: number,
 ): Promise<CartItem[]> => {
-  const { errors } = await client.models.CartItem.delete(
+  const { errors } = await client.models.CartItem.update(
     {
-      id: productId,
-    }
+      id: id,
+      userEmail: email,
+      itemQty: currQty - 1,
+      productId: productId.toString(),
+    },
+    {
+      selectionSet: ['id'],
+    },
   );
 
   if (errors) {
