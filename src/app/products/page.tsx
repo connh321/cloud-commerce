@@ -30,7 +30,7 @@ const Products = async ({ searchParams }: PageProps) => {
     const products: Product[] = await getProductsBySearch(search);
     return renderProductsContent(products);
   } catch (error) {
-    console.error('Error fetching products:', error);
+    console.error('Error fetching products2:', error);
     return <Error></Error>;
   }
 };

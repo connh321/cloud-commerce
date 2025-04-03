@@ -13,25 +13,37 @@ const schema = a.schema({
       price: a.float(),
       stockQty: a.integer(),
       imageUrl: a.string(),
-      cartItems: a.hasMany('CartItem', 'productId'), // Change 'product' to 'productId'
+      cartItems: a.hasMany('CartItem', 'productId'),
+      featuredProducts: a.hasMany('FeaturedProduct', 'productId'),
     })
     .authorization((allow) => [
       allow.guest().to(['read']),
       allow.authenticated().to(['read']),
+      allow.publicApiKey().to(['read']),
     ]),
 
   CartItem: a
     .model({
       userEmail: a.string().required(),
       itemQty: a.integer().required(),
-      productId: a.string().required(), // Add explicit foreign key
-      product: a.belongsTo('Product', 'productId'), // Match field name
+      productId: a.string().required(),
+      product: a.belongsTo('Product', 'productId'),
     })
     .authorization((allow) => [
       allow.authenticated().to(['create', 'read', 'update', 'delete']),
     ]),
-});
 
+  FeaturedProduct: a
+    .model({
+      productId: a.string().required(),
+      product: a.belongsTo('Product', 'productId'),
+    })
+    .authorization((allow) => [
+      allow.guest().to(['read']),
+      allow.authenticated().to(['read']),
+      allow.publicApiKey().to(['read']),
+    ]),
+});
 
 export type Schema = ClientSchema<typeof schema>;
 
@@ -39,6 +51,6 @@ export const data = defineData({
   schema,
   authorizationModes: {
     defaultAuthorizationMode: 'userPool',
-    apiKeyAuthorizationMode: { expiresInDays: 30 }
-  }
+    apiKeyAuthorizationMode: { expiresInDays: 30 },
+  },
 });
