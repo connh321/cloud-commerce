@@ -8,12 +8,7 @@ const client = generateClient<Schema>();
 export const getCartItems = async (email: string): Promise<CartItem[]> => {
   const { data: items, errors } = await client.models.CartItem.list({
     filter: { userEmail: { eq: email } },
-    selectionSet: [
-      'id',
-      'userEmail',
-      'itemQty',
-      'product.*'
-    ],
+    selectionSet: ['id', 'userEmail', 'itemQty', 'product.*'],
   });
 
   if (errors) {
@@ -97,19 +92,14 @@ const createCartItem = async (
 // Main function to add a product to the cart
 export const addProductToCart = async (
   email: string,
-  productId: string
+  productId: string,
 ): Promise<CartItem[]> => {
   console.log(
     `Adding product to cart with email: ${email}, productId: ${productId}`,
   );
   const { data: items, errors } = await client.models.CartItem.list({
     filter: { userEmail: { eq: email } },
-    selectionSet: [
-      'id',
-      'userEmail',
-      'itemQty',
-      'product.*'
-    ],
+    selectionSet: ['id', 'userEmail', 'itemQty', 'productId', 'product.*'],
   });
 
   if (errors) {
@@ -118,16 +108,19 @@ export const addProductToCart = async (
   }
 
   // Check if the product already exists in the user's cart
-  console.log('items', items)
+  console.log('items', items);
 
-  const existingCartItem = items.find(
-    (item) => item?.product?.productId === productId,
-  );
-  console.log('existingCartItem', existingCartItem)
+  const existingCartItem = items.find((item) => item?.productId === productId);
+  console.log('existingCartItem', existingCartItem);
 
   if (existingCartItem) {
     console.log('Updating existing cart item...');
-    await adjustCartItemQuantity(existingCartItem.id, email, existingCartItem.itemQty, 1);
+    await adjustCartItemQuantity(
+      existingCartItem.id,
+      email,
+      existingCartItem.itemQty,
+      1,
+    );
   } else {
     console.log('Creating new cart item...');
     await createCartItem(email, productId);
@@ -147,12 +140,7 @@ export const removeProductFromCart = async (
   // Fetch user's cart items
   const { data: items, errors } = await client.models.CartItem.list({
     filter: { userEmail: { eq: email } },
-    selectionSet: [
-      'id',
-      'userEmail',
-      'itemQty',
-      'product.*'
-    ],
+    selectionSet: ['id', 'userEmail', 'itemQty', 'productId'],
   });
 
   if (errors) {
@@ -161,12 +149,9 @@ export const removeProductFromCart = async (
   }
 
   // Find the cart item matching the productId
-  console.log('items', items)
-  const existingCartItem = items.find(
-    (item) => item?.product?.productId === productId,
-  );
-  console.log('existingCartItem', existingCartItem)
-
+  console.log('items', items);
+  const existingCartItem = items.find((item) => item?.productId === productId);
+  console.log('existingCartItem', existingCartItem);
 
   if (!existingCartItem) {
     console.log('Product not found in cart, nothing to remove.');
