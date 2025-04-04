@@ -2,6 +2,10 @@
 @use '@sass/_variables.scss' as vars;
 
 .signOut {
+  @include mixins.flexDirection(column, null, center);
+}
+
+.signOutContainer {
   margin-top: 25px;
   margin-left: 25px;
   padding-bottom: 50px;
@@ -10,14 +14,13 @@
   height: auto;
 }
 
-.signOut span {
+.signOutContainer span {
   margin-right: 5px;
 }
 
-.signOut button {
+.signOutContainer button {
   height: 36px;
   border-radius: 18px;
-  overflow: hidden;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   max-width: fit-content;
   background-color: #fff;
