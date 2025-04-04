@@ -103,11 +103,10 @@ const createCartItem = async (
 // Main function to add a product to the cart
 export const addProductToCart = async (
   email: string,
-  productId: string,
-  currQty: number,
+  productId: string
 ): Promise<CartItem[]> => {
   console.log(
-    `Adding product to cart with email: ${email}, productId: ${productId}, currQty: ${currQty}`,
+    `Adding product to cart with email: ${email}, productId: ${productId}`,
   );
   const { data: items, errors } = await client.models.CartItem.list({
     filter: { userEmail: { eq: email } },
@@ -137,7 +136,7 @@ export const addProductToCart = async (
 
   if (existingCartItem) {
     console.log('Updating existing cart item...');
-    await adjustCartItemQuantity(existingCartItem.id, email, currQty, 1);
+    await adjustCartItemQuantity(existingCartItem.id, email, existingCartItem.itemQty, 1);
   } else {
     console.log('Creating new cart item...');
     await createCartItem(email, productId);

@@ -18,10 +18,9 @@ import { Hub } from 'aws-amplify/utils';
 interface CartContextType {
   cartItems: CartItem[];
   loading: boolean;
-  addToCart: (productId: string, currQty: number) => Promise<void>;
+  addToCart: (productId: string) => Promise<void>;
   removeFromCart: (
     productId: string,
-    currQty: number,
   ) => Promise<void>;
   getProductCount: (productId: string) => number;
   getCartSize: () => number;
@@ -79,12 +78,12 @@ export const CartProvider = ({ children }: CartProviderProps) => {
   }, []);
 
   // Function to add an item to the cart
-  const addToCart = async (productId: string, currQty: number) => {
+  const addToCart = async (productId: string) => {
     if (!email) return; // add to cart button not shown when email is null
 
     setLoading(true);
     try {
-      const newItems = await addProductToCart(email, productId, currQty);
+      const newItems = await addProductToCart(email, productId);
       setCartItems(newItems);
     } catch (error) {
       console.error('Error adding item to cart:', error);
@@ -96,7 +95,6 @@ export const CartProvider = ({ children }: CartProviderProps) => {
   // Function to remove an item from the cart
   const removeFromCart = async (
     productId: string,
-    currQty: number,
   ) => {
     if (!email) return; // add to cart button not shown when email is null
 
@@ -104,8 +102,7 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     try {
       const newItems = await removeProductFromCart(
         email,
-        productId,
-        currQty,
+        productId
       ); // Replace with dynamic email
       setCartItems(newItems);
     } catch (error) {

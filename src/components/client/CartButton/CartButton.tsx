@@ -21,13 +21,13 @@ const CartButton = ({productId }: CartButtonProps) => {
     if (loading) return;
     if (!signedIn) router.push('/signin');
 
-    addToCart(productId, count);
+    addToCart(productId);
   };
 
   const decrement = () => {
     if (loading) return;
     if (!signedIn) router.push('/signin');
-    removeFromCart(productId, count);
+    removeFromCart(productId);
   };
 
   const CounterComponent = () => {
