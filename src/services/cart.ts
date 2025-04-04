@@ -2,7 +2,6 @@ import { CartItem } from '@/interfaces/cartItem';
 import '@/_lib/utils/amplifyConfig';
 import { Schema } from 'amplify/data/resource';
 import { generateClient } from 'aws-amplify/data';
-import { it } from 'node:test';
 
 const client = generateClient<Schema>();
 
@@ -13,13 +12,7 @@ export const getCartItems = async (email: string): Promise<CartItem[]> => {
       'id',
       'userEmail',
       'itemQty',
-      'product.id',
-      'product.name',
-      'product.description',
-      'product.price',
-      'product.stockQty',
-      'product.imageUrl',
-      'product.productId',
+      'product.*'
     ],
   });
 
@@ -115,13 +108,7 @@ export const addProductToCart = async (
       'id',
       'userEmail',
       'itemQty',
-      'product.id',
-      'product.name',
-      'product.description',
-      'product.price',
-      'product.stockQty',
-      'product.imageUrl',
-      'product.productId',
+      'product.*'
     ],
   });
 
@@ -164,8 +151,7 @@ export const removeProductFromCart = async (
       'id',
       'userEmail',
       'itemQty',
-      'product.id',
-      'product.productId',
+      'product.*'
     ],
   });
 
