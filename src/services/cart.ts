@@ -2,7 +2,6 @@ import { CartItem } from '@/interfaces/cartItem';
 import '@/_lib/utils/amplifyConfig';
 import { Schema } from 'amplify/data/resource';
 import { generateClient } from 'aws-amplify/data';
-import { Product } from '@interfaces/product';
 import { transformProductImageUrls } from './util';
 
 const client = generateClient<Schema>();
