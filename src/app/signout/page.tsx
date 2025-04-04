@@ -33,7 +33,7 @@ const SignOutPage = () => {
           className={styles.signOutButton}
           onClick={handleSignOut}
           disabled={loading}>
-          {loading ? 'Signing Out' : 'Sign In'}
+          {loading ? 'Signing Out' : 'Sign Out'}
         </button>
       </div>
       {loading && (
