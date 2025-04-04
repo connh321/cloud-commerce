@@ -9,6 +9,7 @@ interface CardProps {
 }
 
 const Card = ({ product }: CardProps) => {
+  console.log(product);
   return (
     <div className={styles.card}>
       <div className={styles.imageWrapper}>
@@ -16,13 +17,10 @@ const Card = ({ product }: CardProps) => {
           src={product.imageUrl}
           alt={product.name}
           className={styles.image}
-          objectFit="contain"
+          style={{ objectFit: 'contain' }}
           fill
           priority
           unoptimized
-          loader={({ src }) => {
-            return src;
-          }}
         />
       </div>
       <div className={styles.details}>

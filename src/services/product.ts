@@ -3,6 +3,7 @@ import '@/_lib/utils/amplifyConfig';
 import { Schema } from 'amplify/data/resource';
 import { generateClient } from 'aws-amplify/data';
 import { getAuthToken } from './util';
+import { transformProductImageUrls } from './util';
 
 const client = generateClient<Schema>();
 export const getProducts = async (): Promise<Product[]> => {
@@ -112,12 +113,3 @@ export const getProductsBySearch = async (
   return transformProductImageUrls(products);
 };
 
-const getImageUrl = (imageKey: string) =>
-  `https://cloud-commerce-production-images.s3.us-east-2.amazonaws.com/${imageKey}`;
-
-const transformProductImageUrls = (products: Product[]) => {
-  return products.map((product) => ({
-    ...product,
-    imageUrl: getImageUrl(product.imageUrl),
-  }));
-};
