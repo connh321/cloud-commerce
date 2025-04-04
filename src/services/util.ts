@@ -1,3 +1,4 @@
+import { Product } from '@interfaces/product';
 import { fetchAuthSession } from 'aws-amplify/auth';
 
 export const getAuthToken = async () => {
@@ -12,4 +13,14 @@ export const getAuthToken = async () => {
     console.error('Error getting authentication token:', error);
     throw new Error('User is not authenticated');
   }
+};
+
+const getImageUrl = (imageKey: string) =>
+  `https://cloud-commerce-production-images.s3.us-east-2.amazonaws.com/${imageKey}`;
+
+export const transformProductImageUrls = (products: Product[]) => {
+  return products.map((product) => ({
+    ...product,
+    imageUrl: getImageUrl(product.imageUrl),
+  }));
 };
