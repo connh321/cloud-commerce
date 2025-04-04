@@ -43,7 +43,7 @@ const Cart = () => {
 
   const renderContent = (products: Product[]): React.ReactNode => (
     <div className={styles.cart}>
-      <ProceedCheckout />
+      {cartItems.length !== 0 ? <ProceedCheckout /> : null}
       {loading ? (
         <LoadingComponent loading={loading} size={75} style={loadingStyles} />
       ) : (

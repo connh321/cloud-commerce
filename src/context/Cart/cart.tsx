@@ -22,6 +22,7 @@ interface CartContextType {
   removeFromCart: (id: string, productId: string, currQty: number) => Promise<void>;
   getProductCount: (productId: string) => number;
   getCartSize: () => number;
+  getTotalPrice: () => number;
   resetCart: () => void;
 }
 
@@ -117,6 +118,12 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     return totalQty;
   };
 
+  const getTotalPrice = (): number => {
+    let totalPrice = 0;
+    cartItems.forEach((item) => (totalPrice += item.product.price));
+    return totalPrice;
+  };
+
   const resetCart = () => {
     setCartItems([]);
   };
@@ -130,6 +137,7 @@ export const CartProvider = ({ children }: CartProviderProps) => {
         removeFromCart,
         getProductCount,
         getCartSize,
+        getTotalPrice,
         resetCart,
       }}>
       {children}
