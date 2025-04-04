@@ -45,7 +45,7 @@ const Cart = () => {
     <div className={styles.cart}>
       {cartItems.length !== 0 ? <ProceedCheckout /> : null}
       {loading ? (
-        <LoadingComponent loading={loading} size={75} style={loadingStyles} />
+        <LoadingComponent loading={loading} size={14} style={loadingStyles} />
       ) : (
         <Content products={products} />
       )}
