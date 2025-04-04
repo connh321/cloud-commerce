@@ -41,24 +41,57 @@ export const getCartItems = async (email: string): Promise<CartItem[]> => {
   }));
 };
 
-export const addProductToCart = async (
+// Function to update an existing cart item
+const updateCartItem = async (
   id: string,
   email: string,
   productId: string,
   currQty: number,
-): Promise<CartItem[]> => {
+): Promise<void> => {
   const { errors } = await client.models.CartItem.update({
     id: id,
     userEmail: email,
     itemQty: currQty + 1,
-    productId: productId,
+    productId: productId.toString(),
   });
 
   if (errors) {
     console.error('Error adding product to cart:', errors);
     throw new Error('Failed to add product to cart');
   }
+};
 
+// Function to create a new cart item
+const createCartItem = async (
+  email: string,
+  productId: string,
+): Promise<void> => {
+  const { errors } = await client.models.CartItem.create({
+    userEmail: email,
+    itemQty: 1, // Set initial quantity to 1
+    productId: productId.toString(),
+  });
+
+  if (errors) {
+    console.error('Error creating new cart item:', errors);
+    throw new Error('Failed to create new cart item');
+  }
+};
+
+// Main function to add a product to the cart
+export const addProductToCart = async (
+  id: string,
+  email: string,
+  productId: string,
+  currQty: number,
+): Promise<CartItem[]> => {
+  const existingCartItem = await client.models.CartItem.get({ id: id });
+
+  if (existingCartItem) {
+    await updateCartItem(id, email, productId, currQty);
+  } else {
+    await createCartItem(email, productId);
+  }
   return getCartItems(email);
 };
 
@@ -68,14 +101,12 @@ export const removeProductFromCart = async (
   productId: string,
   currQty: number,
 ): Promise<CartItem[]> => {
-  const { errors } = await client.models.CartItem.update(
-    {
-      id: id,
-      userEmail: email,
-      itemQty: currQty - 1,
-      productId: productId,
-    }
-  );
+  const { errors } = await client.models.CartItem.update({
+    id: id,
+    userEmail: email,
+    itemQty: currQty - 1,
+    productId: productId,
+  });
 
   if (errors) {
     console.error('Error removing product from cart:', errors);
