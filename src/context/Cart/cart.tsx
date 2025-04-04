@@ -127,7 +127,7 @@ export const CartProvider = ({ children }: CartProviderProps) => {
 
   const getTotalPrice = (): number => {
     let totalPrice = 0;
-    cartItems.forEach((item) => (totalPrice += item.product.price));
+    cartItems.forEach((item) => (totalPrice += (item.product.price * item.itemQty)));
     return totalPrice;
   };
 

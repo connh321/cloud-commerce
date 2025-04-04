@@ -19,6 +19,7 @@ const Card = ({ product }: CardProps) => {
           objectFit="contain"
           fill
           priority
+          unoptimized
           loader={({ src }) => {
             return src;
           }}
