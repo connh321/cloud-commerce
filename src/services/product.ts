@@ -68,7 +68,7 @@ export const getFeaturedProducts = async (): Promise<Product[]> => {
     .sort((a, b) => a.featuredId.localeCompare(b.featuredId))
     .map((item) => ({
       id: item.product?.id || '',
-      productId: item.productId || '',
+      productId: item.product.productId || '',
       name: item.product?.name || '',
       description: item.product?.description || '',
       price: item.product?.price || 0,

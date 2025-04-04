@@ -9,7 +9,6 @@ interface CardProps {
 }
 
 const Card = ({ product }: CardProps) => {
-  console.log('Card product', product);
   return (
     <div className={styles.card}>
       <div className={styles.imageWrapper}>
@@ -20,13 +19,16 @@ const Card = ({ product }: CardProps) => {
           objectFit="contain"
           fill
           priority
+          loader={({ src }) => {
+            return src;
+          }}
         />
       </div>
       <div className={styles.details}>
         <span className={styles.productName}>{product.name}</span>
         <div className={styles.namePrice}>
           <span className={styles.price}>${product.price.toFixed(2)}</span>
-          <CartButton productId={product.productId} id={product.id} />
+          <CartButton productId={product.productId} />
         </div>
       </div>
     </div>

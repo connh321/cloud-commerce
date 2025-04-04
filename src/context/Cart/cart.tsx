@@ -18,9 +18,8 @@ import { Hub } from 'aws-amplify/utils';
 interface CartContextType {
   cartItems: CartItem[];
   loading: boolean;
-  addToCart: (id: string, productId: string, currQty: number) => Promise<void>;
+  addToCart: (productId: string, currQty: number) => Promise<void>;
   removeFromCart: (
-    id: string,
     productId: string,
     currQty: number,
   ) => Promise<void>;
@@ -80,13 +79,12 @@ export const CartProvider = ({ children }: CartProviderProps) => {
   }, []);
 
   // Function to add an item to the cart
-  const addToCart = async (id: string, productId: string, currQty: number) => {
+  const addToCart = async (productId: string, currQty: number) => {
     if (!email) return; // add to cart button not shown when email is null
 
     setLoading(true);
     try {
-      console.log('addToCard id, productId', id, productId);
-      const newItems = await addProductToCart(id, email, productId, currQty);
+      const newItems = await addProductToCart(email, productId, currQty);
       setCartItems(newItems);
     } catch (error) {
       console.error('Error adding item to cart:', error);
@@ -97,7 +95,6 @@ export const CartProvider = ({ children }: CartProviderProps) => {
 
   // Function to remove an item from the cart
   const removeFromCart = async (
-    id: string,
     productId: string,
     currQty: number,
   ) => {
@@ -106,7 +103,6 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     setLoading(true);
     try {
       const newItems = await removeProductFromCart(
-        id,
         email,
         productId,
         currQty,

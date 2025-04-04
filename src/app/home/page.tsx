@@ -41,7 +41,6 @@ const renderHomeContent = (
 const Home = async () => {
   try {
     const { products, featuredProducts } = await fetchProductsData();
-    console.log('products, featured', products, featuredProducts)
     const featuredCards = renderCards(featuredProducts);
     return renderHomeContent(featuredCards, products);
   } catch (error) {
