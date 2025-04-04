@@ -39,6 +39,6 @@
 
 @media (max-width: 768px) {
   .footer {
-    display: none;
+    width: calc(100% + 20px);
   }
 }

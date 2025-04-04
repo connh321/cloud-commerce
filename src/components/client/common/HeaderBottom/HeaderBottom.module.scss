@@ -26,6 +26,10 @@
   border: 1px solid #ffffff;
 }
 @media (max-width: 768px) {
+  .hideHeaderBottomMobile {
+    display: none !important;
+  }
+
   .headerBottom {
     min-width: unset;
     background-color: transparent;

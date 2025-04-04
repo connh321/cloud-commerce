@@ -115,7 +115,7 @@
   }
 
   .logo {
-    display: none;
+    // display: none;
   }
 
   .search:has(.searchInput:focus) .backIcon {
@@ -178,6 +178,12 @@
   @media (max-width: 768px) {
     .headerContainer {
       padding: unset;
+    }
+    .hideSearchMobile {
+      display: none;
+    }
+    .hideLogoMobile {
+      display: none;
     }
   }
 }
