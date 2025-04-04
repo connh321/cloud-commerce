@@ -1,16 +1,19 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './Header.module.scss';
 import { HiOutlineSearch } from 'react-icons/hi';
 import { IoArrowBackOutline } from 'react-icons/io5';
 import Navigation from '@/components/client/common/Navigation/Navigation';
 import { useGlobalContext } from '@/context/Global/GlobalContext';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 const Header = () => {
   const { setIsSearchActive, setHidePrimaryColor } = useGlobalContext();
   const router = useRouter();
+  const pathname = usePathname();
+
+  useEffect(() => {}, [pathname]);
 
   const focus = (): void => {
     if (window.innerWidth <= 768) {
@@ -33,14 +36,18 @@ const Header = () => {
   };
 
   return (
-    <div className={styles.header}>
+    <div className={`${styles.header} `}>
       <div className={styles.headerContainer}>
-        <div className={styles.logo}>
+        <div
+          className={`${styles.logo} ${pathname === '/' || pathname === '/products' || pathname === '/home' ? styles.hideLogoMobile : ''}`}>
           <Link href="/" className={styles.link}>
             Logo
           </Link>
         </div>
-        <div className={styles.search} onFocus={focus} onBlur={unfocus}>
+        <div
+          className={`${styles.search} ${pathname === '/' || pathname === '/products' || pathname === '/home' ? '' : styles.hideSearchMobile}`}
+          onFocus={focus}
+          onBlur={unfocus}>
           <div className={styles.backIcon}>
             <IoArrowBackOutline />
           </div>
