@@ -27,7 +27,7 @@ const schema = a.schema({
       userEmail: a.string().required(),
       itemQty: a.integer().required(),
       pId: a.string().required(),
-      product: a.belongsTo('Product', 'id'),
+      product: a.belongsTo('Product', 'pId'),
     })
     .authorization((allow) => [
       allow.authenticated().to(['create', 'read', 'update', 'delete']),
@@ -35,9 +35,9 @@ const schema = a.schema({
 
   FeaturedProduct: a
     .model({
-      pId: a.string().required(),
       featuredId: a.string().required(),
-      product: a.belongsTo('Product', 'id'),
+      pId: a.string().required(),
+      product: a.belongsTo('Product', 'pId'),
     })
     .authorization((allow) => [
       allow.guest().to(['read']),
