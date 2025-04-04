@@ -48,13 +48,14 @@ const updateCartItem = async (
   productId: string,
   currQty: number,
 ): Promise<void> => {
+  console.log(`Updating cart item with id: ${id}, email: ${email}, productId: ${productId}, currQty: ${currQty}`);
   const { errors } = await client.models.CartItem.update({
     id: id,
     userEmail: email,
     itemQty: currQty + 1,
     productId: productId.toString(),
   });
-
+  console.log('Update cart item response:', { errors });
   if (errors) {
     console.error('Error adding product to cart:', errors);
     throw new Error('Failed to add product to cart');
@@ -66,12 +67,13 @@ const createCartItem = async (
   email: string,
   productId: string,
 ): Promise<void> => {
+  console.log(`Creating new cart item with email: ${email}, productId: ${productId}`);
   const { errors } = await client.models.CartItem.create({
     userEmail: email,
     itemQty: 1, // Set initial quantity to 1
     productId: productId.toString(),
   });
-
+  console.log('Create cart item response:', { errors });
   if (errors) {
     console.error('Error creating new cart item:', errors);
     throw new Error('Failed to create new cart item');
@@ -85,13 +87,17 @@ export const addProductToCart = async (
   productId: string,
   currQty: number,
 ): Promise<CartItem[]> => {
+  console.log(`Adding product to cart with id: ${id}, email: ${email}, productId: ${productId}, currQty: ${currQty}`);
   const existingCartItem = await client.models.CartItem.get({ id: id });
-
+  console.log('Existing cart item:', existingCartItem);
   if (existingCartItem) {
+    console.log('Updating existing cart item...');
     await updateCartItem(id, email, productId, currQty);
   } else {
+    console.log('Creating new cart item...');
     await createCartItem(email, productId);
   }
+  console.log('Getting updated cart items...');
   return getCartItems(email);
 };
 
