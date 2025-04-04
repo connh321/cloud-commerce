@@ -6,13 +6,13 @@ import { useAuthContext } from '@/context/Auth/auth';
 import { useRouter } from 'next/navigation';
 
 interface CartButtonProps {
-  productId: string;
+  pId: string;
 }
 
-const CartButton = ({productId }: CartButtonProps) => {
+const CartButton = ({ pId }: CartButtonProps) => {
   const { getProductCount, addToCart, removeFromCart, loading } =
     useCartContext();
-  const count = getProductCount(productId);
+  const count = getProductCount(pId);
 
   const { signedIn } = useAuthContext();
   const router = useRouter();
@@ -21,13 +21,13 @@ const CartButton = ({productId }: CartButtonProps) => {
     if (loading) return;
     if (!signedIn) router.push('/signin');
 
-    addToCart(productId);
+    addToCart(pId);
   };
 
   const decrement = () => {
     if (loading) return;
     if (!signedIn) router.push('/signin');
-    removeFromCart(productId);
+    removeFromCart(pId);
   };
 
   const CounterComponent = () => {

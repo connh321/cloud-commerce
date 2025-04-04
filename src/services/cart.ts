@@ -16,13 +16,14 @@ export const getCartItems = async (email: string): Promise<CartItem[]> => {
     throw new Error('Failed to fetch cart items');
   }
 
+  console.log('getCartItems', getCartItems);
+
   return items.map((item) => ({
     id: item.id,
     userEmail: item.userEmail,
     itemQty: item.itemQty,
     product: {
       id: item.product?.id || '',
-      productId: item.product?.productId || '',
       name: item.product?.name || '',
       description: item.product?.description || '',
       price: item.product?.price || 0,
@@ -72,15 +73,13 @@ const adjustCartItemQuantity = async (
 // Function to create a new cart item
 const createCartItem = async (
   email: string,
-  productId: string,
+  pId: string, 
 ): Promise<void> => {
-  console.log(
-    `Creating new cart item with email: ${email}, productId: ${productId}`,
-  );
+  console.log(`Creating new cart item with email: ${email}, pId: ${pId}`);
   const { errors } = await client.models.CartItem.create({
     userEmail: email,
     itemQty: 1, // Set initial quantity to 1
-    productId: productId.toString(),
+    pId: pId,
   });
   console.log('Create cart item response:', { errors });
   if (errors) {
@@ -92,14 +91,14 @@ const createCartItem = async (
 // Main function to add a product to the cart
 export const addProductToCart = async (
   email: string,
-  productId: string,
+  pId: string,
 ): Promise<CartItem[]> => {
   console.log(
-    `Adding product to cart with email: ${email}, productId: ${productId}`,
+    `Adding product to cart with email: ${email}, pId: ${pId}`,
   );
   const { data: items, errors } = await client.models.CartItem.list({
     filter: { userEmail: { eq: email } },
-    selectionSet: ['id', 'userEmail', 'itemQty', 'productId', 'product.*'],
+    selectionSet: ['id', 'userEmail', 'itemQty', 'pId', 'product.*'],
   });
 
   if (errors) {
@@ -110,7 +109,7 @@ export const addProductToCart = async (
   // Check if the product already exists in the user's cart
   console.log('items', items);
 
-  const existingCartItem = items.find((item) => item?.productId === productId);
+  const existingCartItem = items.find((item) => item?.pId === pId);
   console.log('existingCartItem', existingCartItem);
 
   if (existingCartItem) {
@@ -123,7 +122,7 @@ export const addProductToCart = async (
     );
   } else {
     console.log('Creating new cart item...');
-    await createCartItem(email, productId);
+    await createCartItem(email, pId);
   }
 
   console.log('Getting updated cart items...');
@@ -131,16 +130,16 @@ export const addProductToCart = async (
 };
 export const removeProductFromCart = async (
   email: string,
-  productId: string,
+  pId: string,
 ): Promise<CartItem[]> => {
   console.log(
-    `Removing one quantity of product from cart for email: ${email}, productId: ${productId}`,
+    `Removing one quantity of product from cart for email: ${email}, pId: ${pId}`,
   );
 
   // Fetch user's cart items
   const { data: items, errors } = await client.models.CartItem.list({
     filter: { userEmail: { eq: email } },
-    selectionSet: ['id', 'userEmail', 'itemQty', 'productId'],
+    selectionSet: ['id', 'userEmail', 'itemQty', 'pId'],
   });
 
   if (errors) {
@@ -148,9 +147,9 @@ export const removeProductFromCart = async (
     throw new Error('Failed to fetch cart items');
   }
 
-  // Find the cart item matching the productId
+  // Find the cart item matching the pId
   console.log('items', items);
-  const existingCartItem = items.find((item) => item?.productId === productId);
+  const existingCartItem = items.find((item) => item?.pId === pId);
   console.log('existingCartItem', existingCartItem);
 
   if (!existingCartItem) {

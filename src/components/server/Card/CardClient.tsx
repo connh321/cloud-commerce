@@ -28,7 +28,7 @@ const Card = ({ product }: CardProps) => {
         <span className={styles.productName}>{product.name}</span>
         <div className={styles.namePrice}>
           <span className={styles.price}>${product.price.toFixed(2)}</span>
-          <CartButton productId={product.productId} />
+          <CartButton pId={product.id} />
         </div>
       </div>
     </div>

@@ -10,7 +10,6 @@ export const getProducts = async (): Promise<Product[]> => {
   const { data: items, errors } = await client.models.Product.list({
     selectionSet: [
       'id',
-      'productId',
       'name',
       'description',
       'price',
@@ -26,7 +25,6 @@ export const getProducts = async (): Promise<Product[]> => {
   }
   const products = items.map((item) => ({
     id: item.id || '',
-    productId: item.productId || '',
     name: item.name || '',
     description: item.description || '',
     price: item.price || 0,
@@ -43,17 +41,7 @@ export const getFeaturedProducts = async (): Promise<Product[]> => {
   // Fetch all featured products with their related product details
   const { data: featuredItems, errors } =
     await client.models.FeaturedProduct.list({
-      selectionSet: [
-        'featuredId',
-        'productId',
-        'product.id',
-        'product.name',
-        'product.description',
-        'product.price',
-        'product.stockQty',
-        'product.imageUrl',
-        'product.productId',
-      ],
+      selectionSet: ['featuredId', 'product.*'],
       authMode: 'apiKey',
       authToken: authToken,
     });
@@ -68,7 +56,6 @@ export const getFeaturedProducts = async (): Promise<Product[]> => {
     .sort((a, b) => a.featuredId.localeCompare(b.featuredId))
     .map((item) => ({
       id: item.product?.id || '',
-      productId: item.product.productId || '',
       name: item.product?.name || '',
       description: item.product?.description || '',
       price: item.product?.price || 0,
@@ -99,7 +86,6 @@ export const getProductsBySearch = async (
     },
     selectionSet: [
       'id',
-      'productId',
       'name',
       'description',
       'price',
@@ -118,7 +104,6 @@ export const getProductsBySearch = async (
 
   const products = items.map((item) => ({
     id: item.id || '',
-    productId: item.productId || '',
     name: item.name || '',
     description: item.description || '',
     price: item.price || 0,

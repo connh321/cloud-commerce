@@ -18,11 +18,11 @@ import { Hub } from 'aws-amplify/utils';
 interface CartContextType {
   cartItems: CartItem[];
   loading: boolean;
-  addToCart: (productId: string) => Promise<void>;
+  addToCart: (pId: string) => Promise<void>;
   removeFromCart: (
-    productId: string,
+    pId: string,
   ) => Promise<void>;
-  getProductCount: (productId: string) => number;
+  getProductCount: (pId: string) => number;
   getCartSize: () => number;
   getTotalPrice: () => number;
   resetCart: () => void;
@@ -78,12 +78,12 @@ export const CartProvider = ({ children }: CartProviderProps) => {
   }, []);
 
   // Function to add an item to the cart
-  const addToCart = async (productId: string) => {
+  const addToCart = async (pId: string) => {
     if (!email) return; // add to cart button not shown when email is null
 
     setLoading(true);
     try {
-      const newItems = await addProductToCart(email, productId);
+      const newItems = await addProductToCart(email, pId);
       setCartItems(newItems);
     } catch (error) {
       console.error('Error adding item to cart:', error);
@@ -94,7 +94,7 @@ export const CartProvider = ({ children }: CartProviderProps) => {
 
   // Function to remove an item from the cart
   const removeFromCart = async (
-    productId: string,
+    pId: string,
   ) => {
     if (!email) return; // add to cart button not shown when email is null
 
@@ -102,7 +102,7 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     try {
       const newItems = await removeProductFromCart(
         email,
-        productId
+        pId
       ); // Replace with dynamic email
       setCartItems(newItems);
     } catch (error) {
@@ -113,8 +113,8 @@ export const CartProvider = ({ children }: CartProviderProps) => {
   };
 
   // Function to get the quantity of a specific product in the cart
-  const getProductCount = (productId: string): number => {
-    const item = cartItems.find((item) => item.product.productId === productId);
+  const getProductCount = (pId: string): number => {
+    const item = cartItems.find((item) => item.product.id === pId);
     return item ? item.itemQty : 0;
   };
 
