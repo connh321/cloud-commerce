@@ -16,7 +16,7 @@ const Card = ({ product }: CardProps) => {
           src={product.imageUrl}
           alt={product.name}
           className={styles.image}
-          objectFit="contain"
+          style={{ objectFit: 'contain' }}
           fill
           unoptimized
           priority

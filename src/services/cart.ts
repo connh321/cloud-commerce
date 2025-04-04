@@ -2,6 +2,8 @@ import { CartItem } from '@/interfaces/cartItem';
 import '@/_lib/utils/amplifyConfig';
 import { Schema } from 'amplify/data/resource';
 import { generateClient } from 'aws-amplify/data';
+import { Product } from '@interfaces/product';
+import { transformProductImageUrls } from './util';
 
 const client = generateClient<Schema>();
 
@@ -15,19 +17,26 @@ export const getCartItems = async (email: string): Promise<CartItem[]> => {
     console.error('Error fetching cart items:', errors);
     throw new Error('Failed to fetch cart items');
   }
-  return items.map((item) => ({
+  const products = items.map((item) => ({
+    id: item.product?.id || '',
+    name: item.product?.name || '',
+    description: item.product?.description || '',
+    price: item.product?.price || 0,
+    stockQty: item.product?.stockQty || 0,
+    imageUrl: item.product?.imageUrl || '',
+  }));
+
+  const transformedProducts = transformProductImageUrls(products);
+
+  // Merge transformed product back into cart items
+  const cartItems: CartItem[] = items.map((item, index) => ({
     id: item.id,
     userEmail: item.userEmail,
     itemQty: item.itemQty,
-    product: {
-      id: item.product?.id || '',
-      name: item.product?.name || '',
-      description: item.product?.description || '',
-      price: item.product?.price || 0,
-      stockQty: item.product?.stockQty || 0,
-      imageUrl: item.product?.imageUrl || '',
-    },
+    product: transformedProducts[index],
   }));
+
+  return cartItems;
 };
 
 const adjustCartItemQuantity = async (
@@ -66,10 +75,7 @@ const adjustCartItemQuantity = async (
 };
 
 // Function to create a new cart item
-const createCartItem = async (
-  email: string,
-  pId: string,
-): Promise<void> => {
+const createCartItem = async (email: string, pId: string): Promise<void> => {
   const { errors } = await client.models.CartItem.create({
     userEmail: email,
     itemQty: 1, // Set initial quantity to 1
@@ -116,7 +122,6 @@ export const removeProductFromCart = async (
   email: string,
   pId: string,
 ): Promise<CartItem[]> => {
-
   // Fetch user's cart items
   const { data: items, errors } = await client.models.CartItem.list({
     filter: { userEmail: { eq: email } },
