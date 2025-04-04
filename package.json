@@ -9,24 +9,42 @@
     "lint": "next lint",
     "prepare": "husky",
     "test": "echo 'No tests to run'",
-    "prettier": "prettier --write"
+    "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,html,css,scss}\""
   },
   "dependencies": {
+    "@aws-amplify/adapter-nextjs": "^1.5.8",
+    "@aws-amplify/ui-react": "^6.10.0",
+    "aws-amplify": "^6.14.1",
+    "client-only": "^0.0.1",
     "husky": "^9.1.7",
+    "jwt-decode": "^4.0.0",
     "next": "15.2.3",
     "prettier": "^3.5.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "sass": "^1.86.0"
+    "react-error-boundary": "^5.0.0",
+    "react-icons": "^5.5.0",
+    "react-spinners": "^0.15.0",
+    "sass": "^1.86.0",
+    "server-only": "^0.0.1",
+    "swiper": "^11.2.6"
   },
   "devDependencies": {
+    "@aws-amplify/backend": "^1.15.0",
+    "@aws-amplify/backend-cli": "^1.5.0",
+    "@babel/parser": "^7.27.0",
     "@eslint/eslintrc": "^3",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "aws-cdk": "^2.1003.0",
+    "aws-cdk-lib": "^2.180.0",
+    "constructs": "^10.4.2",
+    "esbuild": "^0.25.2",
     "eslint": "^9",
     "eslint-config-next": "15.2.3",
-    "typescript": "^5",
-    "husky": "^8.0.0"
+    "husky": "^8.0.0",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
   }
 }

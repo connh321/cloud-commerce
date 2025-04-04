@@ -1,0 +1,154 @@
+@use '@sass/_mixins.scss' as mixins;
+@use '@sass/_variables.scss' as vars;
+
+.navigation {
+  display: inline-flex;
+  align-items: center;
+  background-color: transparent;
+}
+
+.helloText {
+  @include mixins.ellipsis();
+  color: vars.$amazon-light;
+}
+
+.userText {
+  @include mixins.ellipsis();
+  font-weight: 700;
+  color: white;
+}
+
+.userTextIcon > svg {
+  margin-left: 3px;
+}
+
+.userContainer {
+  @include mixins.flexDirection(column, null, null);
+  @include mixins.interactive-section();
+  transform: translatex(10px);
+  font-size: 0.875rem;
+}
+
+.userTextIcon {
+  @include mixins.flexDirection(row, center, null);
+}
+
+.cart {
+  @include mixins.interactive-section();
+  position: relative;
+  @include mixins.flexDirection(row, center, center);
+  text-align: center;
+}
+
+.cartIcon {
+  width: auto;
+  object-fit: cover;
+  height: 34px;
+}
+
+.cartCount {
+  color: vars.$amazon-dark-yellow;
+  font-weight: 700;
+  position: absolute;
+  top: 3px;
+  text-align: center;
+  padding-left: 7px;
+  font-size: 0.8rem;
+}
+
+@media (min-width: 769px) {
+  .mobileHome {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .navigation {
+    @include mixins.flexDirection(row, null, space-around);
+    height: 40px;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px 0;
+    box-shadow: 0 -4px 8px rgb(0, 0, 0, 0.1);
+    z-index: 10;
+  }
+
+  .mobileHome,
+  .userTextIcon {
+    @include mixins.flexDirection(row, center, center);
+    width: fit-content;
+    height: 100%;
+    font-size: 1.6rem;
+    right: 0;
+    cursor: pointer;
+    color: vars.$amazon-dark-blue;
+    position: relative;
+    transition:
+      color 0.3s ease,
+      transform 0.3s ease;
+  }
+
+  .activeTab::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    width: 2rem;
+    height: 6px;
+    background-color: vars.$amazon-light-blue;
+    border-radius: 3px;
+    margin-bottom: 4px;
+    transition: transform 0.3s ease;
+  }
+
+  .helloText,
+  .userText {
+    display: none;
+  }
+
+  .userContainer {
+    margin-left: 0px;
+    width: 26px;
+    height: 26px;
+    font-size: 1.6rem;
+    right: 0;
+    cursor: pointer;
+    color: black;
+  }
+
+  .userContainer {
+    position: relative;
+    transition:
+      color 0.3s ease,
+      transform 0.3s ease;
+  }
+
+  .cart {
+    margin: 8px 10px 4px;
+  }
+
+  .cartIcon {
+    width: auto;
+    object-fit: cover;
+    height: 28px;
+    filter: invert(100%);
+    position: relative;
+  }
+  .cartCount {
+    font-weight: 600;
+    color: vars.$amazon-dark-blue;
+    top: 0px;
+  }
+
+  .userText {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .navigation {
+    background-color: white;
+  }
+}

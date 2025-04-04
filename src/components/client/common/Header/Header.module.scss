@@ -1,0 +1,183 @@
+@use '@sass/_mixins.scss' as mixins;
+@use '@sass/_variables.scss' as vars;
+
+.header {
+  width: 100%;
+  min-width: 768px;
+  height: 60px;
+  color: vars.$amazon-light;
+  position: sticky;
+}
+
+.headerContainer {
+  @include mixins.flexDirection(row, center, space-between);
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 4px;
+  box-sizing: border-box;
+  background-color: vars.$amazon-dark-blue;
+  transition: box-shadow 0.2s ease;
+}
+
+.logo {
+  @include mixins.flexDirection(row, center, center);
+  @include mixins.interactive-section();
+  width: 115px;
+  height: 45px;
+}
+
+.link {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.link:visited {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.search {
+  @include mixins.flexDirection(row, center, null);
+  flex: 1;
+  margin: 0 10px;
+  height: 100%;
+  position: relative;
+}
+
+.inputIcon {
+  @include mixins.flexDirection(row, center, null);
+  height: 40px;
+  flex: 1;
+}
+
+.searchInput {
+  width: 100%;
+  height: 100%;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  border: none;
+  line-height: 1em;
+  font-size: 1rem;
+  text-indent: 8px;
+  padding-top: unset;
+  padding-bottom: unset;
+  transition: all 0.3s ease;
+  &:focus-visible {
+    width: calc(100% - 40px);
+    outline: none;
+    box-shadow: 0 0 0 4px vars.$amazon-dark-yellow;
+  }
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.searchIcon {
+  @include mixins.flexDirection(row, center, center);
+  width: 3rem;
+  height: 100%;
+  background-color: vars.$amazon-light-yellow;
+  color: black;
+  font-size: 2rem;
+  right: 0;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  cursor: pointer;
+  transform: translateX(-4px);
+  transition: all 0.3s ease;
+}
+
+.searchInput:focus + .searchIcon {
+  box-shadow: 0 0 0 4px vars.$amazon-dark-yellow;
+}
+
+.search .backIcon {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .nav {
+    display: none;
+  }
+
+  .header {
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    min-width: 100%;
+  }
+
+  .headerContainer {
+    flex-direction: column;
+    padding: 10px;
+    background-color: unset;
+  }
+
+  .logo {
+    display: none;
+  }
+
+  .search:has(.searchInput:focus) .backIcon {
+    @include mixins.flexDirection(row, center, center);
+    width: 3rem;
+    height: 100%;
+    background-color: transparent;
+    color: vars.$amazon-dark-blue;
+    font-size: 1.6rem;
+    cursor: pointer;
+    position: absolute;
+    left: -7px;
+  }
+
+  .search:has(.searchInput:focus) {
+    box-shadow: 0 0 8px #99c2ff; /* Light blue glow */
+    background: linear-gradient(to bottom, rgba(178, 216, 255, 0.8), #99c2ff);
+    outline: none;
+  }
+
+  .search {
+    width: 100%;
+    margin: 0;
+    height: 60px;
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+
+  .searchIcon {
+    @include mixins.flexDirection(row, center, center);
+    width: 3rem;
+    height: 100%;
+    background-color: transparent;
+    color: vars.$amazon-dark-blue;
+    font-size: 1.6rem;
+    cursor: default;
+    position: absolute;
+    left: 13px;
+  }
+
+  .searchInput {
+    text-indent: 40px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    &:focus {
+      transform: translateX(20px);
+      box-shadow: unset;
+    }
+  }
+
+  .searchInput:focus + .searchIcon {
+    box-shadow: unset;
+    transform: translateX(20px);
+  }
+
+  @media (max-width: 768px) {
+    .headerContainer {
+      padding: unset;
+    }
+  }
+}
