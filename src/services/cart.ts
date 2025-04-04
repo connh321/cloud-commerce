@@ -2,6 +2,7 @@ import { CartItem } from '@/interfaces/cartItem';
 import '@/_lib/utils/amplifyConfig';
 import { Schema } from 'amplify/data/resource';
 import { generateClient } from 'aws-amplify/data';
+import { it } from 'node:test';
 
 const client = generateClient<Schema>();
 
@@ -130,9 +131,12 @@ export const addProductToCart = async (
   }
 
   // Check if the product already exists in the user's cart
+  console.log('items', items)
+
   const existingCartItem = items.find(
-    (item) => item.product.productId === productId,
+    (item) => item?.product?.productId === productId,
   );
+  console.log('existingCartItem', existingCartItem)
 
   if (existingCartItem) {
     console.log('Updating existing cart item...');
@@ -171,9 +175,12 @@ export const removeProductFromCart = async (
   }
 
   // Find the cart item matching the productId
+  console.log('items', items)
   const existingCartItem = items.find(
-    (item) => item.product.productId === productId,
+    (item) => item?.product?.productId === productId,
   );
+  console.log('existingCartItem', existingCartItem)
+
 
   if (!existingCartItem) {
     console.log('Product not found in cart, nothing to remove.');
