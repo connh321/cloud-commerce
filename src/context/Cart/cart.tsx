@@ -19,7 +19,11 @@ interface CartContextType {
   cartItems: CartItem[];
   loading: boolean;
   addToCart: (id: string, productId: string, currQty: number) => Promise<void>;
-  removeFromCart: (id: string, productId: string, currQty: number) => Promise<void>;
+  removeFromCart: (
+    id: string,
+    productId: string,
+    currQty: number,
+  ) => Promise<void>;
   getProductCount: (productId: string) => number;
   getCartSize: () => number;
   getTotalPrice: () => number;
@@ -81,6 +85,7 @@ export const CartProvider = ({ children }: CartProviderProps) => {
 
     setLoading(true);
     try {
+      console.log('addToCard id, productId', id, productId);
       const newItems = await addProductToCart(id, email, productId, currQty);
       setCartItems(newItems);
     } catch (error) {
@@ -91,12 +96,21 @@ export const CartProvider = ({ children }: CartProviderProps) => {
   };
 
   // Function to remove an item from the cart
-  const removeFromCart = async (id: string, productId: string, currQty: number) => {
+  const removeFromCart = async (
+    id: string,
+    productId: string,
+    currQty: number,
+  ) => {
     if (!email) return; // add to cart button not shown when email is null
 
     setLoading(true);
     try {
-      const newItems = await removeProductFromCart(id, email, productId, currQty); // Replace with dynamic email
+      const newItems = await removeProductFromCart(
+        id,
+        email,
+        productId,
+        currQty,
+      ); // Replace with dynamic email
       setCartItems(newItems);
     } catch (error) {
       console.error('Error removing item from cart:', error);

@@ -9,6 +9,7 @@ interface CardProps {
 }
 
 const Card = ({ product }: CardProps) => {
+  console.log('Card product', product);
   return (
     <div className={styles.card}>
       <div className={styles.imageWrapper}>
