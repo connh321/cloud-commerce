@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './Navigation.module.scss';
 import { FaRegUser } from 'react-icons/fa';
 import cartIcon from '@images/cart.png';
@@ -10,6 +10,7 @@ import LoadingComponent from '../LoadingComponent/Loading';
 import { useRouter, usePathname } from 'next/navigation';
 import { useGlobalContext } from '@/context/Global/GlobalContext';
 import { useAuthContext } from '@/context/Auth/auth';
+import { Hub } from 'aws-amplify/utils';
 
 const TABS = {
   HOME: '/',
@@ -21,11 +22,11 @@ const TABS = {
 const TAB_ICONS = {
   [TABS.HOME]: <IoHomeOutline />,
   [TABS.SIGN_IN]: <FaRegUser />,
+  [TABS.SIGN_OUT]: <FaRegUser />,
   [TABS.CART]: (
     <Image className={styles.cartIcon} src={cartIcon} alt="cart-icon" />
   ),
 };
-
 
 const Navigation = () => {
   const { activeTab, setActiveTab } = useGlobalContext();
@@ -34,6 +35,21 @@ const Navigation = () => {
   const router = useRouter();
   const pathname = usePathname();
   const { email, signedIn } = useAuthContext();
+
+  useEffect(() => {
+    const hubListener = Hub.listen('auth', async (data) => {
+      switch (data.payload.event) {
+        case 'signedIn':
+          setActiveTab('/');
+          break;
+        case 'signedOut':
+          setActiveTab('/');
+          break;
+      }
+    });
+
+    return () => hubListener();
+  }, [router, setActiveTab]);
 
   const handleNavigation = (tab: string) => {
     tab = tab === '' ? TABS.HOME : tab;
@@ -46,8 +62,7 @@ const Navigation = () => {
     return (
       <div
         className={`${styles.userContainer} ${activeTab === TABS.SIGN_IN ? styles.activeTab : ''}`}
-        onClick={() => handleNavigation(TABS.SIGN_IN)}
-      >
+        onClick={() => handleNavigation(TABS.SIGN_IN)}>
         <div className={styles.userTextIcon}>
           <span className={styles.userText}>Sign In</span>
           {TAB_ICONS[TABS.SIGN_IN]}
@@ -60,8 +75,7 @@ const Navigation = () => {
     return (
       <div
         className={`${styles.userContainer} ${activeTab === TABS.SIGN_OUT ? styles.activeTab : ''}`}
-        onClick={() => handleNavigation(TABS.SIGN_OUT)}
-      >
+        onClick={() => handleNavigation(TABS.SIGN_OUT)}>
         <span className={styles.helloText}>Hello, {email}</span>
         <div className={styles.userTextIcon}>
           <span className={styles.userText}>Sign Out</span>
@@ -75,8 +89,7 @@ const Navigation = () => {
     return (
       <div
         className={`${styles.cart} ${activeTab === TABS.CART ? styles.activeTab : ''}`}
-        onClick={onCartClick}
-      >
+        onClick={onCartClick}>
         <span className={styles.cartCount}>
           {loading ? (
             <LoadingComponent
@@ -104,8 +117,7 @@ const Navigation = () => {
     <div className={styles.navigation}>
       <div
         className={`${styles.mobileHome} ${activeTab === TABS.HOME ? styles.activeTab : ''}`}
-        onClick={() => handleNavigation(TABS.HOME)}
-      >
+        onClick={() => handleNavigation(TABS.HOME)}>
         {TAB_ICONS[TABS.HOME]}
       </div>
       {signedIn ? signOutButton() : signInButton()}
