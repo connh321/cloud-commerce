@@ -81,6 +81,7 @@ const createCartItem = async (
 };
 
 // Main function to add a product to the cart
+// Main function to add a product to the cart
 export const addProductToCart = async (
   id: string,
   email: string,
@@ -90,7 +91,7 @@ export const addProductToCart = async (
   console.log(`Adding product to cart with id: ${id}, email: ${email}, productId: ${productId}, currQty: ${currQty}`);
   const existingCartItem = await client.models.CartItem.get({ id: id });
   console.log('Existing cart item:', existingCartItem);
-  if (existingCartItem) {
+  if (existingCartItem && existingCartItem.data) {
     console.log('Updating existing cart item...');
     await updateCartItem(id, email, productId, currQty);
   } else {
