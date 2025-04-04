@@ -13,9 +13,8 @@ const schema = a.schema({
       price: a.float(),
       stockQty: a.integer(),
       imageUrl: a.string(),
-      productId: a.string().required(),
-      cartItems: a.hasMany('CartItem', 'productId'),
-      featuredProducts: a.hasMany('FeaturedProduct', 'productId'),
+      cartItems: a.hasMany('CartItem', 'pId'),
+      featuredProducts: a.hasMany('FeaturedProduct', 'pId'),
     })
     .authorization((allow) => [
       allow.guest().to(['read']),
@@ -27,8 +26,8 @@ const schema = a.schema({
     .model({
       userEmail: a.string().required(),
       itemQty: a.integer().required(),
-      productId: a.string().required(),
-      product: a.belongsTo('Product', 'productId'),
+      pId: a.string().required(),
+      product: a.belongsTo('Product', 'pId'),
     })
     .authorization((allow) => [
       allow.authenticated().to(['create', 'read', 'update', 'delete']),
@@ -36,9 +35,9 @@ const schema = a.schema({
 
   FeaturedProduct: a
     .model({
-      productId: a.string().required(),
       featuredId: a.string().required(),
-      product: a.belongsTo('Product', 'productId'),
+      pId: a.string(), // temp remove required to add ids
+      product: a.belongsTo('Product', 'pId'),
     })
     .authorization((allow) => [
       allow.guest().to(['read']),

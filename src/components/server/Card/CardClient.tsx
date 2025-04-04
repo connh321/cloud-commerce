@@ -19,13 +19,17 @@ const Card = ({ product }: CardProps) => {
           objectFit="contain"
           fill
           priority
+          unoptimized
+          loader={({ src }) => {
+            return src;
+          }}
         />
       </div>
       <div className={styles.details}>
         <span className={styles.productName}>{product.name}</span>
         <div className={styles.namePrice}>
           <span className={styles.price}>${product.price.toFixed(2)}</span>
-          <CartButton productId={product.productId} id={product.id} />
+          <CartButton pId={product.id} />
         </div>
       </div>
     </div>

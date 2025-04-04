@@ -18,9 +18,11 @@ import { Hub } from 'aws-amplify/utils';
 interface CartContextType {
   cartItems: CartItem[];
   loading: boolean;
-  addToCart: (id: string, productId: string, currQty: number) => Promise<void>;
-  removeFromCart: (id: string, productId: string, currQty: number) => Promise<void>;
-  getProductCount: (productId: string) => number;
+  addToCart: (pId: string) => Promise<void>;
+  removeFromCart: (
+    pId: string,
+  ) => Promise<void>;
+  getProductCount: (pId: string) => number;
   getCartSize: () => number;
   getTotalPrice: () => number;
   resetCart: () => void;
@@ -76,12 +78,12 @@ export const CartProvider = ({ children }: CartProviderProps) => {
   }, []);
 
   // Function to add an item to the cart
-  const addToCart = async (id: string, productId: string, currQty: number) => {
+  const addToCart = async (pId: string) => {
     if (!email) return; // add to cart button not shown when email is null
 
     setLoading(true);
     try {
-      const newItems = await addProductToCart(id, email, productId, currQty);
+      const newItems = await addProductToCart(email, pId);
       setCartItems(newItems);
     } catch (error) {
       console.error('Error adding item to cart:', error);
@@ -91,12 +93,17 @@ export const CartProvider = ({ children }: CartProviderProps) => {
   };
 
   // Function to remove an item from the cart
-  const removeFromCart = async (id: string, productId: string, currQty: number) => {
+  const removeFromCart = async (
+    pId: string,
+  ) => {
     if (!email) return; // add to cart button not shown when email is null
 
     setLoading(true);
     try {
-      const newItems = await removeProductFromCart(id, email, productId, currQty); // Replace with dynamic email
+      const newItems = await removeProductFromCart(
+        email,
+        pId
+      ); // Replace with dynamic email
       setCartItems(newItems);
     } catch (error) {
       console.error('Error removing item from cart:', error);
@@ -106,8 +113,8 @@ export const CartProvider = ({ children }: CartProviderProps) => {
   };
 
   // Function to get the quantity of a specific product in the cart
-  const getProductCount = (productId: string): number => {
-    const item = cartItems.find((item) => item.product.productId === productId);
+  const getProductCount = (pId: string): number => {
+    const item = cartItems.find((item) => item.product.id === pId);
     return item ? item.itemQty : 0;
   };
 
@@ -120,7 +127,7 @@ export const CartProvider = ({ children }: CartProviderProps) => {
 
   const getTotalPrice = (): number => {
     let totalPrice = 0;
-    cartItems.forEach((item) => (totalPrice += item.product.price));
+    cartItems.forEach((item) => (totalPrice += (item.product.price * item.itemQty)));
     return totalPrice;
   };
 

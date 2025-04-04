@@ -12,7 +12,7 @@ const Card = React.lazy(() => import('@/components/server/Card/CardServer'));
 
 const Cards = ({ products }: { products: Product[] }): React.ReactNode => {
   return products.map((product: Product) => (
-    <Suspense fallback={<SkeletonCard />} key={product.productId}>
+    <Suspense fallback={<SkeletonCard />} key={product.id}>
       <Card product={product} />
     </Suspense>
   ));

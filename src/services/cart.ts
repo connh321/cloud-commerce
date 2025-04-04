@@ -8,30 +8,19 @@ const client = generateClient<Schema>();
 export const getCartItems = async (email: string): Promise<CartItem[]> => {
   const { data: items, errors } = await client.models.CartItem.list({
     filter: { userEmail: { eq: email } },
-    selectionSet: [
-      'userEmail',
-      'itemQty',
-      'product.id',
-      'product.name',
-      'product.description',
-      'product.price',
-      'product.stockQty',
-      'product.imageUrl',
-      'product.productId',
-    ],
+    selectionSet: ['id', 'userEmail', 'itemQty', 'product.*'],
   });
 
   if (errors) {
     console.error('Error fetching cart items:', errors);
     throw new Error('Failed to fetch cart items');
   }
-
   return items.map((item) => ({
+    id: item.id,
     userEmail: item.userEmail,
     itemQty: item.itemQty,
     product: {
       id: item.product?.id || '',
-      productId: item.product?.productId || '',
       name: item.product?.name || '',
       description: item.product?.description || '',
       price: item.product?.price || 0,
@@ -41,37 +30,51 @@ export const getCartItems = async (email: string): Promise<CartItem[]> => {
   }));
 };
 
-// Function to update an existing cart item
-const updateCartItem = async (
+const adjustCartItemQuantity = async (
   id: string,
   email: string,
-  productId: string,
-  currQty: number,
-): Promise<void> => {
-  const { errors } = await client.models.CartItem.update({
-    id: id,
-    userEmail: email,
-    itemQty: currQty + 1,
-    productId: productId.toString(),
-  });
+  currentQty: number,
+  deltaQty: number,
+): Promise<'updated' | 'deleted'> => {
+  const newQty = currentQty + deltaQty;
 
-  if (errors) {
-    console.error('Error adding product to cart:', errors);
-    throw new Error('Failed to add product to cart');
+  if (newQty > 0) {
+    const { errors } = await client.models.CartItem.update({
+      id,
+      userEmail: email,
+      itemQty: newQty,
+    });
+
+    if (errors) {
+      console.error('Error updating cart item:', errors);
+      throw new Error('Failed to update cart item');
+    }
+
+    return 'updated';
+  } else {
+    const { errors } = await client.models.CartItem.delete({
+      id,
+    });
+
+    if (errors) {
+      console.error('Error deleting cart item:', errors);
+      throw new Error('Failed to delete cart item');
+    }
+
+    return 'deleted';
   }
 };
 
 // Function to create a new cart item
 const createCartItem = async (
   email: string,
-  productId: string,
+  pId: string,
 ): Promise<void> => {
   const { errors } = await client.models.CartItem.create({
     userEmail: email,
     itemQty: 1, // Set initial quantity to 1
-    productId: productId.toString(),
+    pId: pId,
   });
-
   if (errors) {
     console.error('Error creating new cart item:', errors);
     throw new Error('Failed to create new cart item');
@@ -80,38 +83,62 @@ const createCartItem = async (
 
 // Main function to add a product to the cart
 export const addProductToCart = async (
-  id: string,
   email: string,
-  productId: string,
-  currQty: number,
+  pId: string,
 ): Promise<CartItem[]> => {
-  const existingCartItem = await client.models.CartItem.get({ id: id });
-
-  if (existingCartItem) {
-    await updateCartItem(id, email, productId, currQty);
-  } else {
-    await createCartItem(email, productId);
-  }
-  return getCartItems(email);
-};
-
-export const removeProductFromCart = async (
-  id: string,
-  email: string,
-  productId: string,
-  currQty: number,
-): Promise<CartItem[]> => {
-  const { errors } = await client.models.CartItem.update({
-    id: id,
-    userEmail: email,
-    itemQty: currQty - 1,
-    productId: productId,
+  const { data: items, errors } = await client.models.CartItem.list({
+    filter: { userEmail: { eq: email } },
+    selectionSet: ['id', 'userEmail', 'itemQty', 'product.id'],
   });
 
   if (errors) {
-    console.error('Error removing product from cart:', errors);
-    throw new Error('Failed to remove product from cart');
+    console.error('Error fetching cart items:', errors);
+    throw new Error('Failed to fetch cart items');
   }
 
+  // Check if the product already exists in the user's cart
+  const existingCartItem = items.find((item) => item?.product?.id === pId);
+
+  if (existingCartItem) {
+    await adjustCartItemQuantity(
+      existingCartItem.id,
+      email,
+      existingCartItem.itemQty,
+      1,
+    );
+  } else {
+    await createCartItem(email, pId);
+  }
+
+  return getCartItems(email);
+};
+export const removeProductFromCart = async (
+  email: string,
+  pId: string,
+): Promise<CartItem[]> => {
+
+  // Fetch user's cart items
+  const { data: items, errors } = await client.models.CartItem.list({
+    filter: { userEmail: { eq: email } },
+    selectionSet: ['id', 'userEmail', 'itemQty', 'product.id'],
+  });
+
+  if (errors) {
+    console.error('Error fetching cart items:', errors);
+    throw new Error('Failed to fetch cart items');
+  }
+
+  const existingCartItem = items.find((item) => item?.product?.id === pId);
+
+  if (!existingCartItem) {
+    return getCartItems(email);
+  }
+
+  await adjustCartItemQuantity(
+    existingCartItem.id,
+    email,
+    existingCartItem.itemQty,
+    -1,
+  );
   return getCartItems(email);
 };

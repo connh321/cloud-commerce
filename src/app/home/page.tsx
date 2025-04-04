@@ -19,7 +19,7 @@ const fetchProductsData = async () => {
 // Function to render a list of cards
 const renderCards = (products: Product[]): React.ReactNode[] => {
   return products.map((product) => (
-    <Suspense fallback={<SkeletonCard />} key={product.productId}>
+    <Suspense fallback={<SkeletonCard />} key={product.id}>
       <Card product={product} />
     </Suspense>
   ));
@@ -41,7 +41,6 @@ const renderHomeContent = (
 const Home = async () => {
   try {
     const { products, featuredProducts } = await fetchProductsData();
-    console.log('products, featured', products, featuredProducts)
     const featuredCards = renderCards(featuredProducts);
     return renderHomeContent(featuredCards, products);
   } catch (error) {
