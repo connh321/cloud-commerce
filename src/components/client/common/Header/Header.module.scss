@@ -24,7 +24,7 @@
   @include mixins.flexDirection(row, center, center);
   @include mixins.interactive-section();
   width: 115px;
-  height: 45px;
+  height: 50px;
 }
 
 .link {
@@ -186,4 +186,8 @@
       display: none;
     }
   }
+}
+
+.image {
+  margin-top: 4px;
 }
