@@ -1,10 +1,17 @@
 'use client';
-import React from 'react';
+import React, { JSX } from 'react';
 import { useRouter } from 'next/navigation';
 
-const Error: React.FC = () => {
+/**
+ * Error component that displays when something goes wrong
+ * @returns {JSX.Element} Error message with refresh button
+ */
+const Error: React.FC = (): JSX.Element => {
   const router = useRouter();
 
+  /**
+   * Handles refreshing the page when try again is clicked
+   */
   const handleRefresh = () => {
     router.refresh();
   };
