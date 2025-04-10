@@ -6,6 +6,11 @@ import { getAuthToken } from './util';
 import { transformProductImageUrls } from './util';
 
 const client = generateClient<Schema>();
+
+/**
+ * Fetches all products from the database
+ * @returns {Promise<Product[]>} Array of products
+ */
 export const getProducts = async (): Promise<Product[]> => {
   const authToken = await getAuthToken();
   const { data: items, errors } = await client.models.Product.list({
@@ -36,6 +41,10 @@ export const getProducts = async (): Promise<Product[]> => {
   return transformProductImageUrls(products);
 };
 
+/**
+ * Fetches featured products from the database
+ * @returns {Promise<Product[]>} Array of featured products
+ */
 export const getFeaturedProducts = async (): Promise<Product[]> => {
   const authToken = await getAuthToken();
 
@@ -67,6 +76,11 @@ export const getFeaturedProducts = async (): Promise<Product[]> => {
   return transformProductImageUrls(products);
 };
 
+/**
+ * Fetches products based on a search term
+ * @param {string | string[] | undefined} search Search term or array of search terms
+ * @returns {Promise<Product[]>} Array of products matching the search term(s)
+ */
 export const getProductsBySearch = async (
   search: string | string[] | undefined,
 ): Promise<Product[]> => {
@@ -112,4 +126,3 @@ export const getProductsBySearch = async (
 
   return transformProductImageUrls(products);
 };
-

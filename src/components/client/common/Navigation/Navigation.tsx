@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { JSX, useEffect } from 'react';
 import styles from './Navigation.module.scss';
 import { FaRegUser } from 'react-icons/fa';
 import cartIcon from '@images/cart.png';
@@ -10,7 +10,11 @@ import LoadingComponent from '../LoadingComponent/Loading';
 import { useRouter, usePathname } from 'next/navigation';
 import { useGlobalContext } from '@/context/Global/GlobalContext';
 import { useAuthContext } from '@/context/Auth/auth';
+import { Hub } from 'aws-amplify/utils';
 
+/**
+ * Navigation tab constants
+ */
 const TABS = {
   HOME: '/',
   SIGN_IN: '/signin',
@@ -18,16 +22,23 @@ const TABS = {
   CART: '/cart',
 };
 
+/**
+ * Icon mapping for navigation tabs
+ */
 const TAB_ICONS = {
   [TABS.HOME]: <IoHomeOutline />,
   [TABS.SIGN_IN]: <FaRegUser />,
+  [TABS.SIGN_OUT]: <FaRegUser />,
   [TABS.CART]: (
     <Image className={styles.cartIcon} src={cartIcon} alt="cart-icon" />
   ),
 };
 
-
-const Navigation = () => {
+/**
+ * Navigation component that handles routing and displays navigation tabs
+ * @returns {JSX.Element} Navigation bar with home, auth, and cart controls
+ */
+const Navigation = (): JSX.Element => {
   const { activeTab, setActiveTab } = useGlobalContext();
   const { loading, getCartSize } = useCartContext();
   const count = getCartSize();
@@ -35,6 +46,28 @@ const Navigation = () => {
   const pathname = usePathname();
   const { email, signedIn } = useAuthContext();
 
+  /**
+   * Handles auth state changes via Hub events
+   */
+  useEffect(() => {
+    const hubListener = Hub.listen('auth', async (data) => {
+      switch (data.payload.event) {
+        case 'signedIn':
+          setActiveTab('/');
+          break;
+        case 'signedOut':
+          setActiveTab('/');
+          break;
+      }
+    });
+
+    return () => hubListener();
+  }, [router, setActiveTab]);
+
+  /**
+   * Handles navigation between tabs
+   * @param {string} tab Tab route to navigate to
+   */
   const handleNavigation = (tab: string) => {
     tab = tab === '' ? TABS.HOME : tab;
     if (pathname === tab) return;
@@ -42,6 +75,9 @@ const Navigation = () => {
     router.push(tab);
   };
 
+  /**
+   * Renders the sign in button for unauthenticated users
+   */
   const signInButton = () => {
     return (
       <div
@@ -56,6 +92,9 @@ const Navigation = () => {
     );
   };
 
+  /**
+   * Renders the sign out button for authenticated users
+   */
   const signOutButton = () => {
     return (
       <div
@@ -71,6 +110,9 @@ const Navigation = () => {
     );
   };
 
+  /**
+   * Renders the cart button with item count
+   */
   const cartButton = () => {
     return (
       <div
@@ -92,6 +134,9 @@ const Navigation = () => {
     );
   };
 
+  /**
+   * Handles cart button clicks with auth check
+   */
   const onCartClick = () => {
     if (!signedIn) {
       router.push('/signin');

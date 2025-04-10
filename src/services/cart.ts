@@ -2,11 +2,15 @@ import { CartItem } from '@/interfaces/cartItem';
 import '@/_lib/utils/amplifyConfig';
 import { Schema } from 'amplify/data/resource';
 import { generateClient } from 'aws-amplify/data';
-import { Product } from '@interfaces/product';
 import { transformProductImageUrls } from './util';
 
 const client = generateClient<Schema>();
 
+/**
+ * Fetches all cart items for a given user
+ * @param {string} email User's email
+ * @returns {Promise<CartItem[]>} Array of cart items with product details
+ */
 export const getCartItems = async (email: string): Promise<CartItem[]> => {
   const { data: items, errors } = await client.models.CartItem.list({
     filter: { userEmail: { eq: email } },
@@ -39,6 +43,14 @@ export const getCartItems = async (email: string): Promise<CartItem[]> => {
   return cartItems;
 };
 
+/**
+ * Updates or deletes cart item based on quantity change
+ * @param {string} id Cart item ID
+ * @param {string} email User's email
+ * @param {number} currentQty Current quantity
+ * @param {number} deltaQty Quantity change
+ * @returns {Promise<'updated' | 'deleted'>} Result of operation
+ */
 const adjustCartItemQuantity = async (
   id: string,
   email: string,
@@ -74,7 +86,11 @@ const adjustCartItemQuantity = async (
   }
 };
 
-// Function to create a new cart item
+/**
+ * Creates a new cart item
+ * @param {string} email User's email
+ * @param {string} pId Product ID
+ */
 const createCartItem = async (email: string, pId: string): Promise<void> => {
   const { errors } = await client.models.CartItem.create({
     userEmail: email,
@@ -87,7 +103,12 @@ const createCartItem = async (email: string, pId: string): Promise<void> => {
   }
 };
 
-// Main function to add a product to the cart
+/**
+ * Adds or increments product quantity in cart
+ * @param {string} email User's email
+ * @param {string} pId Product ID
+ * @returns {Promise<CartItem[]>} Updated cart items
+ */
 export const addProductToCart = async (
   email: string,
   pId: string,
@@ -118,6 +139,13 @@ export const addProductToCart = async (
 
   return getCartItems(email);
 };
+
+/**
+ * Decrements or removes product from cart
+ * @param {string} email User's email
+ * @param {string} pId Product ID
+ * @returns {Promise<CartItem[]>} Updated cart items
+ */
 export const removeProductFromCart = async (
   email: string,
   pId: string,

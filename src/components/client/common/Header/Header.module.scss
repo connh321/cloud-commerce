@@ -24,7 +24,7 @@
   @include mixins.flexDirection(row, center, center);
   @include mixins.interactive-section();
   width: 115px;
-  height: 45px;
+  height: 50px;
 }
 
 .link {
@@ -115,7 +115,7 @@
   }
 
   .logo {
-    display: none;
+    // display: none;
   }
 
   .search:has(.searchInput:focus) .backIcon {
@@ -179,5 +179,15 @@
     .headerContainer {
       padding: unset;
     }
+    .hideSearchMobile {
+      display: none;
+    }
+    .hideLogoMobile {
+      display: none;
+    }
   }
+}
+
+.image {
+  margin-top: 4px;
 }

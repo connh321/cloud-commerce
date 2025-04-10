@@ -10,10 +10,17 @@ import styles from './CardCarousel.module.scss';
 import CardWrapper from '../CardWrapper/CardWrapper';
 import { useGlobalContext } from '@/context/Global/GlobalContext';
 
+/**
+ * Props for the CardCarousel component
+ * @interface CardCarouselProps
+ */
 interface CardCarouselProps {
   cards: ReactNode[];
 }
 
+/**
+ * Array of colors used for carousel card backgrounds
+ */
 const colors: string[] = [
   '#32D573', // $spring green
   '#094A7E', // $dark-blue
@@ -25,6 +32,11 @@ const colors: string[] = [
   '#29171A', // $ruby
 ];
 
+/**
+ * Responsive carousel component that displays cards with dynamic background colors
+ * @param {CardCarouselProps} props - Component props
+ * @returns {JSX.Element} Carousel with responsive breakpoints and navigation
+ */
 const CardCarousel = ({ cards }: CardCarouselProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const { setPrimaryColor } = useGlobalContext();
@@ -54,7 +66,8 @@ const CardCarousel = ({ cards }: CardCarouselProps) => {
           769: { slidesPerView: 2 },
           1045: { slidesPerView: 3 },
           1415: { slidesPerView: 4 },
-        }}>
+        }}
+      >
         {cards.map((card, index) => {
           const bgColor = colors[index % colors.length];
           return (

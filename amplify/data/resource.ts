@@ -36,7 +36,7 @@ const schema = a.schema({
   FeaturedProduct: a
     .model({
       featuredId: a.string().required(),
-      pId: a.string(), // temp remove required to add ids
+      pId: a.string().required(),
       product: a.belongsTo('Product', 'pId'),
     })
     .authorization((allow) => [

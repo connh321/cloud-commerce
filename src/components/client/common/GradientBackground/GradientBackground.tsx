@@ -6,10 +6,18 @@ import HeaderBottom from '../HeaderBottom/HeaderBottom';
 import Navigation from '../Navigation/Navigation';
 import styles from './GradientBackground.module.scss';
 
+/**
+ * Props interface for GradientBackground component
+ */
 interface GradientBackgroundProps {
   children: React.ReactNode;
 }
 
+/**
+ * Component that provides a dynamic gradient background with header and navigation
+ * @param {GradientBackgroundProps} props Component props
+ * @returns {JSX.Element} Layout wrapper with gradient background
+ */
 const GradientBackground = ({ children }: GradientBackgroundProps) => {
   const { primaryColor, isSearchActive, hidePrimaryColor } = useGlobalContext();
   const [hideColor, setHideColor] = useState(hidePrimaryColor);
@@ -19,7 +27,11 @@ const GradientBackground = ({ children }: GradientBackgroundProps) => {
     setHideColor(hidePrimaryColor);
   }, [primaryColor, hidePrimaryColor]);
 
-  // Convert hex to RGB for rgba functionality
+  /**
+   * Converts hex color to RGB format for gradient opacity
+   * @param {string} hex Hex color code
+   * @returns {string} RGB values as comma-separated string
+   */
   const hexToRgb = (hex: string) => {
     // Remove the hash at the beginning if it's there
     hex = hex.replace(/^#/, '');
