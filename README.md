@@ -1,7 +1,5 @@
 # Cloud Commerce
 
-# Cloud Commerce
-
 A modern e-commerce platform built with Next.js 15 and AWS Amplify, leveraging serverless architecture for scalability. Features include a responsive design with dynamic theming, real-time product search, secure authentication via Cognito, and optimized content delivery through CloudFront. The platform offers a seamless shopping experience with server-side rendering and comprehensive error handling.
 
 ## Features
@@ -42,7 +40,6 @@ A modern e-commerce platform built with Next.js 15 and AWS Amplify, leveraging s
 ### Prerequisites
 
 - Node.js (Latest LTS version)
-- npm
 - AWS account
 - AWS Amplify CLI
 
