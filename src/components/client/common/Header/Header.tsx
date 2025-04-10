@@ -17,7 +17,7 @@ const Header = () => {
   const { setIsSearchActive, setHidePrimaryColor } = useGlobalContext();
   const router = useRouter();
   const pathname = usePathname();
-  const [windowWidth, setWindowWidth] = useState(0);
+  const [windowWidth, setWindowWidth] = useState(768);
 
   /**
    * Handles window resize events and updates width state
@@ -27,6 +27,7 @@ const Header = () => {
       setWindowWidth(window.innerWidth);
     };
     window.addEventListener('resize', handleResize);
+    handleResize(); // Set initial width
     return () => {
       window.removeEventListener('resize', handleResize);
     };
@@ -37,7 +38,7 @@ const Header = () => {
    * Activates search mode on mobile devices
    */
   const focus = (): void => {
-    if (window.innerWidth <= 768) {
+    if (window.innerWidth < 768) {
       setIsSearchActive(true);
       setHidePrimaryColor(true);
     }
@@ -72,7 +73,7 @@ const Header = () => {
           <Link href="/" className={styles.link}>
             <Image
               src={
-                windowWidth <= 768
+                windowWidth < 768
                   ? '/images/cc_black_logo.png'
                   : '/images/cc_logo.png'
               }
