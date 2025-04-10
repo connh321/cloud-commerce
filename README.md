@@ -1,40 +1,139 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Cloud Commerce
+
+# Cloud Commerce
+
+A modern e-commerce platform built with Next.js 15 and AWS Amplify, leveraging serverless architecture for scalability. Features include a responsive design with dynamic theming, real-time product search, secure authentication via Cognito, and optimized content delivery through CloudFront. The platform offers a seamless shopping experience with server-side rendering and comprehensive error handling.
+
+## Features
+
+- 🛍️ Product browsing with featured items carousel
+- 🔍 Real-time search functionality
+- 🛒 Shopping cart management
+- 🔐 Secure user authentication
+- 📱 Responsive mobile-first design
+- 🎨 Dynamic color theming
+- 🌐 Server-side rendering
+- ⚡ Optimized image loading
+- 🛡️ Comprehensive error handling and fallbacks
+
+## Tech Stack
+
+- **Frontend:**
+  - Next.js 15
+  - React 19
+  - SASS/SCSS
+  - TypeScript
+  - Swiper.js
+
+- **Backend:**
+  - AWS Amplify
+  - GraphQL API
+  - S3 for image storage
+  - Cognito for authentication
+  - CloudFront for content delivery
+  - API Gateway for API management
+  - Lambda for serverless functions
+  - DynamoDB for database storage
+  - Route 53 for hosted DNS
+  - ACM for secure traffic using HTTPS
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js (Latest LTS version)
+- npm
+- AWS account
+- AWS Amplify CLI
+
+### Installation
+
+1. Clone the repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/yourusername/cloud-commerce.git
+cd cloud-commerce
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Configure Amplify
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+For detailed Amplify configuration instructions, visit [AWS Amplify Documentation](https://docs.amplify.aws/)
 
-## Learn More
+4. Start the development server
+```bash
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+5. For production build and server
+```bash
+npm run build
+npm start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+cloud-commerce/
+├── amplify/            # AWS Amplify 
+├── public/             # Static assets
+├── src/
+│   ├── app/           # Next.js pages and layouts
+│   ├── components/    # React components
+│   ├── context/       # React context providers
+│   ├── interfaces/    # TypeScript interfaces
+│   ├── services/      # API services
+│   └── _lib/          # Utility functions
+└── sass/              # Global styles
+```
 
-## Deploy on Vercel
+## Development
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `npm run dev` - Start development server
+- `npm run build` - Build production bundle
+- `npm run lint` - Run ESLint
+- `npm run prettier` - Format code
+- `npm test` - Run tests
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deployment
 
-## Testing locally 
-npm run dev -- -H 0.0.0.0 
-connect to machine http://...ipAddr:/3000
+The application can be deployed using AWS Amplify.
+First push your changes to GitHub and Amplify should automatically pickup the changes.
+
+## Git Hooks
+
+This project uses Husky for Git hooks to ensure code quality:
+
+### Pre-commit
+- Runs ESLint
+- Runs Prettier formatting
+
+### Pre-push
+- Runs ESLint
+- Runs Prettier formatting
+
+To skip hooks temporarily (not recommended), use:
+```bash
+git commit -m "message" --no-verify
+```
+
+Note: Hooks can be found in the `.husky` directory
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Author
+
+Connor Hunter - [@connh321](https://github.com/connh321)
