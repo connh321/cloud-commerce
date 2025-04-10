@@ -1,9 +1,13 @@
 'use server';
-import React from 'react';
+import React, { JSX } from 'react';
 import styles from './Footer.module.scss';
 import Link from 'next/link';
 
-const Footer = () => {
+/**
+ * Footer component that displays copyright information
+ * @returns {JSX.Element} Footer with copyright notice and author link
+ */
+const Footer = (): JSX.Element => {
   return (
     <div className={styles.footer}>
       <p className={styles.paragraph}>

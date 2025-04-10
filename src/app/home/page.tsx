@@ -1,3 +1,4 @@
+'use server';
 import styles from './page.module.scss';
 import { Product } from '@/interfaces/product';
 import { getFeaturedProducts, getProducts } from '@/services/product';
@@ -9,14 +10,24 @@ import Error from '@/components/client/common/ErrorBoundary/Error';
 
 const Card = React.lazy(() => import('@/components/server/Card/CardServer'));
 
-// Function to fetch products data
-const fetchProductsData = async () => {
+/**
+ * Fetches both regular and featured products from the API
+ * @returns {Promise<{products: Product[], featuredProducts: Product[]}>}
+ */
+const fetchProductsData = async (): Promise<{
+  products: Product[];
+  featuredProducts: Product[];
+}> => {
   const products: Product[] = await getProducts();
   const featuredProducts: Product[] = await getFeaturedProducts();
   return { products, featuredProducts };
 };
 
-// Function to render a list of cards
+/**
+ * Renders product cards with lazy loading and suspense fallback
+ * @param {Product[]} products Array of products to render as cards
+ * @returns {React.ReactNode[]} Array of card components
+ */
 const renderCards = (products: Product[]): React.ReactNode[] => {
   return products.map((product) => (
     <Suspense fallback={<SkeletonCard />} key={product.id}>
@@ -25,7 +36,12 @@ const renderCards = (products: Product[]): React.ReactNode[] => {
   ));
 };
 
-// Function to render the main content of the home page
+/**
+ * Renders the main home page layout with featured products and full collection
+ * @param {React.ReactNode[]} featuredCards Array of featured product cards
+ * @param {Product[]} products Array of all products
+ * @returns {React.ReactNode} Home page content
+ */
 const renderHomeContent = (
   featuredCards: React.ReactNode[],
   products: Product[],
@@ -37,7 +53,10 @@ const renderHomeContent = (
     <ProductSectionServer products={products} />
   </div>
 );
-
+/**
+ * Home page component that displays featured products and full product collection
+ * @returns {Promise<React.ReactNode>} Rendered home page or error component
+ */
 const Home = async () => {
   try {
     const { products, featuredProducts } = await fetchProductsData();

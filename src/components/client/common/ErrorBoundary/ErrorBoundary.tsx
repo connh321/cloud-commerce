@@ -6,17 +6,27 @@ import {
 } from 'react-error-boundary';
 import Error from './Error'; // Default error component
 
+/**
+ * Props interface for ErrorBoundary component
+ */
 interface Props {
   children: ReactNode;
   // Optional custom fallback component which overrides the default.
   FallbackComponent?: React.ComponentType<FallbackProps>;
 }
 
-// Default fallback that renders the general Error component
+/**
+ * Default fallback component that renders the Error component
+ */
 const DefaultErrorFallback: React.FC<FallbackProps> = () => {
   return <Error />;
 };
 
+/**
+ * Error boundary wrapper that catches and handles React component errors
+ * @param {Props} props Component props
+ * @returns {JSX.Element} Wrapped content with error handling
+ */
 const ErrorBoundary: React.FC<Props> = ({
   children,
   FallbackComponent = DefaultErrorFallback,

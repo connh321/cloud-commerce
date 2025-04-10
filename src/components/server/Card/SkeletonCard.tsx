@@ -1,6 +1,11 @@
+import { JSX } from 'react';
 import styles from './SkeletonCard.module.scss';
 
-const SkeletonCard = () => {
+/**
+ * Loading placeholder component that mimics the Product Card layout
+ * @returns {JSX.Element} Skeleton UI with animated loading state
+ */
+const SkeletonCard = (): JSX.Element => {
   return (
     <div className={styles.skeletonCard}>
       <div className={styles.imageWrapper}>

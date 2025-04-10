@@ -1,9 +1,13 @@
 'use client';
-import React from 'react';
+import React, { JSX } from 'react';
 import styles from './page.module.scss';
 import AuthClient from '@/components/client/common/AuthClient/AuthClient';
 
-const SignIn = () => {
+/**
+ * SignIn page component that renders the authentication form
+ * @returns {JSX.Element} Authentication page with sign-in form
+ */
+const SignIn = (): JSX.Element => {
   return (
     <div className={styles.signIn}>
       <AuthClient />

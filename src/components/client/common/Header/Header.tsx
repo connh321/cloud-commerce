@@ -9,12 +9,19 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import Image from 'next/image';
 
+/**
+ * Header component that provides navigation, search, and responsive logo
+ * @returns {JSX.Element} Application header with search and navigation
+ */
 const Header = () => {
   const { setIsSearchActive, setHidePrimaryColor } = useGlobalContext();
   const router = useRouter();
   const pathname = usePathname();
   const [windowWidth, setWindowWidth] = useState(0);
 
+  /**
+   * Handles window resize events and updates width state
+   */
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
@@ -26,6 +33,9 @@ const Header = () => {
   }, []);
   useEffect(() => {}, []);
 
+  /**
+   * Activates search mode on mobile devices
+   */
   const focus = (): void => {
     if (window.innerWidth <= 768) {
       setIsSearchActive(true);
@@ -33,11 +43,18 @@ const Header = () => {
     }
   };
 
+  /**
+   * Deactivates search mode
+   */
   const unfocus = (): void => {
     setIsSearchActive(false);
     setHidePrimaryColor(false);
   };
 
+  /**
+   * Handles search input submission on enter key
+   * @param {React.KeyboardEvent<HTMLInputElement>} e Keyboard event
+   */
   const keyDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -50,7 +67,8 @@ const Header = () => {
     <div className={`${styles.header} `}>
       <div className={styles.headerContainer}>
         <div
-          className={`${styles.logo} ${pathname === '/' || pathname === '/products' || pathname === '/home' ? styles.hideLogoMobile : ''}`}>
+          className={`${styles.logo} ${pathname === '/' || pathname === '/products' || pathname === '/home' ? styles.hideLogoMobile : ''}`}
+        >
           <Link href="/" className={styles.link}>
             <Image
               src={
@@ -71,7 +89,8 @@ const Header = () => {
         <div
           className={`${styles.search} ${pathname === '/' || pathname === '/products' || pathname === '/home' ? '' : styles.hideSearchMobile}`}
           onFocus={focus}
-          onBlur={unfocus}>
+          onBlur={unfocus}
+        >
           <div className={styles.backIcon}>
             <IoArrowBackOutline />
           </div>

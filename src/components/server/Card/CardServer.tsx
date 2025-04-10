@@ -3,12 +3,21 @@ import Image from 'next/image';
 import styles from './Card.module.scss';
 import { Product } from '@/interfaces/product';
 import CartButton from '@/components/client/CartButton/CartButton';
+import { JSX } from 'react';
 
+/**
+ * Props interface for Card component
+ */
 interface CardProps {
   product: Product;
 }
 
-const Card = ({ product }: CardProps) => {
+/**
+ * Server-side product card component that displays product details
+ * @param {CardProps} props Component props containing product data
+ * @returns {JSX.Element} Product card with image, name, price and cart button
+ */
+const Card = ({ product }: CardProps): JSX.Element => {
   return (
     <div className={styles.card}>
       <div className={styles.imageWrapper}>

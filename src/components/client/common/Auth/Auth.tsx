@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { JSX } from 'react';
 import { Amplify } from 'aws-amplify';
 import outputs from '../../../../../amplify_outputs.json';
 import { Authenticator } from '@aws-amplify/ui-react';
@@ -10,7 +10,13 @@ Amplify.configure(outputs, { ssr: true });
 interface AuthProps {
   children: React.ReactNode;
 }
-const Auth = ({ children }: AuthProps) => {
+
+/**
+ * Authentication provider wrapper component
+ * @param {AuthProps} props Component props
+ * @returns {JSX.Element} Wrapped content with authentication context
+ */
+const Auth = ({ children }: AuthProps): JSX.Element => {
   return <Authenticator.Provider>{children}</Authenticator.Provider>;
 };
 

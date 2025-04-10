@@ -7,6 +7,9 @@ import { useCartContext } from '@/context/Cart/cart';
 import LoadingComponent from '@/components/client/common/LoadingComponent/Loading';
 import ProceedCheckout from '@/components/client/ProceedCheckout/ProceedCheckout';
 
+/**
+ * Cart page component that displays and manages shopping cart items
+ */
 const Cart = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const { cartItems, loading } = useCartContext();
@@ -33,6 +36,9 @@ const Cart = () => {
     );
   };
 
+  /**
+   * Inline styles for the loading component
+   */
   const loadingStyles = {
     display: 'flex',
     justifyContent: 'center',
@@ -41,6 +47,11 @@ const Cart = () => {
     marginTop: '15px',
   };
 
+  /**
+   * Renders the main cart content with loading state and checkout button
+   * @param {Product[]} products Array of products to display
+   * @returns {React.ReactNode} Rendered cart content
+   */
   const renderContent = (products: Product[]): React.ReactNode => (
     <div className={styles.cart}>
       {cartItems.length !== 0 ? <ProceedCheckout /> : null}

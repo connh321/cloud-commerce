@@ -6,7 +6,11 @@ import ProductSectionServer from '@/components/server/ProductSection/ProductSect
 import Error from '@/components/client/common/ErrorBoundary/Error';
 import { getProductsBySearch } from '@/services/product';
 
-// Function to render the main content of the products page
+/**
+ * Renders the products page content with search results
+ * @param {Product[]} products Array of products to display
+ * @returns {React.ReactNode} Products page content
+ */
 const renderProductsContent = (products: Product[]): React.ReactNode => (
   <div className={styles.products}>
     {products.length === 0 ? (
@@ -20,11 +24,21 @@ const renderProductsContent = (products: Product[]): React.ReactNode => (
   </div>
 );
 
+/**
+ * Props interface for the Products page component
+ */
 type PageProps = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-const Products = async ({ searchParams }: PageProps) => {
+/**
+ * Products page component that displays filtered products based on search parameters
+ * @param {PageProps} props Component props containing search parameters
+ * @returns {Promise<React.ReactNode>} Rendered products page or error component
+ */
+const Products = async ({
+  searchParams,
+}: PageProps): Promise<React.ReactNode> => {
   const { search } = await searchParams;
   try {
     const products: Product[] = await getProductsBySearch(search);
